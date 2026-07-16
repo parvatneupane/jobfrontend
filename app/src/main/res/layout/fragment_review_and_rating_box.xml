@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp"
+        android:background="@android:color/white">
+
+        <!-- Title -->
+        <TextView
+            android:id="@+id/txtTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="⭐ Rate Freelancer"
+            android:textStyle="bold"
+            android:textSize="22sp"
+            android:textColor="#212121"/>
+
+        <!-- Freelancer Name -->
+        <TextView
+            android:id="@+id/txtFreelancerName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="John Doe"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:textColor="#4F46E5"/>
+
+        <!-- Message -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Thank you for completing the project."
+            android:textSize="15sp"
+            android:textColor="#666666"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="How was your experience?"
+            android:textStyle="bold"
+            android:textSize="17sp"
+            android:textColor="#212121"/>
+
+        <!-- Rating -->
+        <RatingBar
+            android:id="@+id/ratingBar"
+            style="@style/Widget.AppCompat.RatingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:numStars="5"
+            android:stepSize="1"
+            android:rating="0"/>
+
+        <!-- Rating Text -->
+        <TextView
+            android:id="@+id/txtRatingStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:text="Tap a star to rate"
+            android:textSize="14sp"
+            android:textColor="#777777"/>
+
+        <!-- Review -->
+        <EditText
+            android:id="@+id/edtReview"
+            android:layout_width="match_parent"
+            android:layout_height="140dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/bg_review_box"
+            android:gravity="top|start"
+            android:hint="Write your review..."
+            android:padding="15dp"
+            android:inputType="textMultiLine"
+            android:minLines="5"
+            android:maxLines="8"
+            android:textColor="#212121"
+            android:textColorHint="#999999"/>
+
+        <!-- Recommend -->
+        <CheckBox
+            android:id="@+id/chkRecommend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:text="Recommend this freelancer"
+            android:textSize="15sp"/>
+
+        <!-- Buttons -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="28dp"
+            android:gravity="end"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnSkip"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:text="Skip"
+                android:textAllCaps="false"
+                android:backgroundTint="#BDBDBD"/>
+
+            <Button
+                android:id="@+id/btnSubmit"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_marginStart="12dp"
+                android:text="Submit"
+                android:textAllCaps="false"
+                android:backgroundTint="#4F46E5"
+                android:textColor="#FFFFFF"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>

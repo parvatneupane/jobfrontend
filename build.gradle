@@ -1,0 +1,15 @@
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        // Keep your current AGP version to avoid build errors
+        classpath 'com.android.tools.build:gradle:8.2.1' 
+        classpath 'com.google.gms:google-services:4.4.2'
+    }
+}
+
+plugins {
+    alias(libs.plugins.android.application) apply false
+}

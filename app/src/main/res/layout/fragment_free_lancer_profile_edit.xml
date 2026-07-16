@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:background="@color/background">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <!-- Header -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Edit Profile"
+            android:textSize="32sp"
+            android:textStyle="bold"
+            android:textColor="@color/text_primary"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:text="Complete your freelancer profile"
+            android:textColor="@color/text_secondary"/>
+
+        <!-- TITLE -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="Professional Title"
+            android:textStyle="bold"
+            android:textColor="@color/text_primary"/>
+
+        <EditText
+            android:id="@+id/etTitle"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/bg_input"
+            android:hint="Android Developer"
+            android:paddingHorizontal="16dp"/>
+
+        <!-- BIO -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:text="Bio"
+            android:textStyle="bold"
+            android:textColor="@color/text_primary"/>
+
+        <EditText
+            android:id="@+id/etBio"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/bg_input"
+            android:gravity="top"
+            android:hint="Tell clients about yourself"
+            android:padding="16dp"/>
+
+        <!-- EXPERIENCE -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:text="Experience (Years)"
+            android:textStyle="bold"/>
+
+        <EditText
+            android:id="@+id/etExperience"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/bg_input"
+            android:inputType="number"
+            android:paddingHorizontal="16dp"/>
+
+        <!-- RATE -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:text="Hourly Rate"
+            android:textStyle="bold"/>
+
+        <EditText
+            android:id="@+id/etRate"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/bg_input"
+            android:hint="500"
+            android:inputType="numberDecimal"
+            android:paddingHorizontal="16dp"/>
+
+        <!-- SKILLS -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:text="Skills"
+            android:textStyle="bold"/>
+
+        <EditText
+            android:id="@+id/etSkills"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/bg_input"
+            android:gravity="top"
+            android:hint="Java, Laravel, Android"
+            android:padding="16dp"/>
+
+        <!-- LOCATION -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:text="Location"
+            android:textStyle="bold"/>
+
+        <EditText
+            android:id="@+id/etLocation"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/bg_input"
+            android:hint="Pokhara"
+            android:paddingHorizontal="16dp"/>
+
+        <!-- CATEGORIES -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:text="Categories"
+            android:textStyle="bold"
+            android:textColor="@color/text_primary"/>
+
+        <TextView
+            android:id="@+id/txtSelectedCategories"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/bg_input"
+            android:padding="16dp"
+            android:text="Select Categories"
+            android:textColor="@color/text_secondary"
+            android:clickable="true"
+            android:focusable="true"/>
+
+        <!-- AVAILABILITY -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:text="Availability"
+            android:textStyle="bold"/>
+
+        <Spinner
+            android:id="@+id/spAvailability"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginTop="8dp"/>
+
+        <!-- PORTFOLIO -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:text="Portfolio URL"
+            android:textStyle="bold"/>
+
+        <EditText
+            android:id="@+id/etPortfolio"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/bg_input"
+            android:hint="https://"
+            android:inputType="textUri"
+            android:paddingHorizontal="16dp"/>
+
+        <!-- SAVE -->
+
+        <Button
+            android:id="@+id/btnSaveProfile"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginTop="30dp"
+            android:text="Save Profile"
+            android:textAllCaps="false"
+            android:textStyle="bold"
+            android:textColor="@color/text_on_primary"
+            android:backgroundTint="@color/primary"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="120dp"/>
+
+    </LinearLayout>
+
+</ScrollView>
