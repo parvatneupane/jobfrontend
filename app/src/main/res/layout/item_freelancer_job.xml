@@ -96,14 +96,29 @@
             android:text="Details"
             android:textColor="@color/text_secondary" />
 
-        <TextView
-            android:id="@+id/txtJobBudget"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="Budget: Rs. 0"
-            android:textColor="@color/success"
-            android:textStyle="bold" />
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginTop="10dp">
+
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:src="@drawable/ic_money"
+                app:tint="@color/success" />
+
+            <TextView
+                android:id="@+id/txtJobBudget"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:text="Budget: Rs. 0"
+                android:textColor="@color/success"
+                android:textStyle="bold" />
+
+        </LinearLayout>
 
         <Button
             android:id="@+id/btnApply"
@@ -162,6 +177,18 @@
                 android:textSize="12sp"
                 android:gravity="center"
                 android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/btnRaiseConflict"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:layout_gravity="center"
+                android:text="Problem? Raise a Conflict"
+                android:textColor="@color/accent"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                android:padding="8dp" />
 
         </LinearLayout>
 

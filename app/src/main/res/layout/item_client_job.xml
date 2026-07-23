@@ -131,21 +131,36 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:src="@drawable/ic_money"
+                app:tint="@color/primary" />
 
             <TextView
                 android:id="@+id/txtBudget"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:layout_marginStart="6dp"
                 android:text="Rs. 35,000"
                 android:textStyle="bold"
                 android:textColor="@color/primary"/>
+
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:src="@drawable/ic_calendar"
+                app:tint="@color/text_secondary" />
 
             <TextView
                 android:id="@+id/txtDeadline"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
                 android:text="Due: 15 Jul"
                 android:textSize="13sp"
                 android:textColor="@color/text_secondary"/>
@@ -219,6 +234,18 @@
                 android:textAllCaps="false"
                 android:backgroundTint="@color/success"
                 android:textColor="@color/white" />
+
+            <TextView
+                android:id="@+id/btnRaiseConflict"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:layout_gravity="center"
+                android:text="Problem? Raise a Conflict"
+                android:textColor="@color/accent"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                android:padding="8dp" />
 
         </LinearLayout>
 

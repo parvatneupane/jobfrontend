@@ -1,36 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true"
+    android:orientation="vertical"
     android:background="@color/background">
 
+    <!-- Header Nav Bar -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="20dp">
+        android:orientation="vertical">
 
-        <!-- HEADER -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:background="@color/surface"
+            android:elevation="4dp"
+            android:paddingHorizontal="20dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Profile"
-            android:textSize="32sp"
-            android:textStyle="bold"
-            android:textColor="@color/text_primary"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="My Profile"
+                android:textColor="@color/text_primary"
+                android:textSize="22sp"
+                android:textStyle="bold" />
 
-        <!-- PROFILE CARD -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnEditProfile"
+                style="@style/Widget.Material3.Button.TonalButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:text="Edit"
+                android:textSize="13sp"
+                app:icon="@drawable/ic_profile_outlined"
+                app:iconSize="16dp"
+                app:shapeAppearanceOverlay="@style/ShapeAppearance.App.Medium" />
+        </RelativeLayout>
 
-        <androidx.cardview.widget.CardView
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:background="@color/primary" />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="18dp"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <!-- Profile Insight Card -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             app:cardCornerRadius="24dp"
+            app:cardElevation="0dp"
+            app:strokeWidth="1dp"
+            app:strokeColor="@color/divider"
             app:cardBackgroundColor="@color/surface">
 
             <LinearLayout
@@ -42,14 +78,14 @@
 
                 <TextView
                     android:id="@+id/txtAvatar"
-                    android:layout_width="90dp"
-                    android:layout_height="90dp"
+                    android:layout_width="84dp"
+                    android:layout_height="84dp"
                     android:gravity="center"
                     android:text="P"
-                    android:textSize="34sp"
+                    android:textSize="32sp"
                     android:textStyle="bold"
                     android:textColor="@color/primary"
-                    android:background="@color/primary_light"/>
+                    android:background="@drawable/bg_circle_light_purple"/>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -62,72 +98,101 @@
                         android:id="@+id/txtUsername"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Loading..."
+                        android:text="Freelancer Name"
                         android:textColor="@color/text_primary"
-                        android:textSize="24sp"
+                        android:textSize="22sp"
                         android:textStyle="bold"/>
 
                     <ImageView
                         android:id="@+id/imgVerifiedBadge"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
                         android:layout_marginStart="6dp"
                         android:src="@drawable/ic_verified"
-                        android:visibility="gone"/>
-
+                        android:visibility="gone"
+                        app:tint="@color/primary" />
                 </LinearLayout>
 
                 <TextView
                     android:id="@+id/txtTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp"
-                    android:text="Loading..."
-                    android:textColor="@color/text_secondary"/>
-
-                <TextView
-                    android:id="@+id/txtCategories"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
-                    android:text=""
-                    android:textSize="14sp"
-                    android:textStyle="italic"
-                    android:textColor="@color/primary"
-                    android:visibility="gone"/>
+                    android:text="Professional Title"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="15sp" />
 
                 <TextView
                     android:id="@+id/txtAvailability"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="12dp"
                     android:text="Available"
-                    android:textStyle="bold"
-                    android:textColor="@color/success"/>
-
-                <Button
-                    android:id="@+id/btnEditProfile"
-                    android:layout_width="match_parent"
-                    android:layout_height="54dp"
-                    android:layout_marginTop="22dp"
-                    android:text="Edit Profile"
-                    android:textAllCaps="false"
-                    android:textColor="@color/text_on_primary"
-                    android:backgroundTint="@color/primary"/>
-
+                    android:paddingHorizontal="12dp"
+                    android:paddingVertical="4dp"
+                    android:background="@drawable/bg_circle_light_blue"
+                    android:textColor="@color/info"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
             </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
 
-        </androidx.cardview.widget.CardView>
-
-
-        <!-- VERIFY CARD -->
-
-        <androidx.cardview.widget.CardView
+        <!-- Financial Overview -->
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="18dp"
-            app:cardCornerRadius="22dp"
-            app:cardBackgroundColor="@color/primary_light">
+            android:layout_marginTop="16dp"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="0dp"
+            app:cardBackgroundColor="@color/primary">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="20dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Total Earnings"
+                        android:textColor="#CCFFFFFF"
+                        android:textSize="13sp" />
+                    <TextView
+                        android:id="@+id/txtEarnings"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Rs. 0"
+                        android:textColor="@color/white"
+                        android:textSize="26sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:src="@drawable/ic_money"
+                    app:tint="@color/white"
+                    android:alpha="0.8" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Verification Status Card -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="0dp"
+            app:strokeWidth="1dp"
+            app:strokeColor="@color/divider"
+            app:cardBackgroundColor="@color/surface">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -138,136 +203,114 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Verify Account"
-                    android:textStyle="bold"
-                    android:textSize="22sp"
-                    android:textColor="@color/text_primary"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Unlock more opportunities"
-                    android:textColor="@color/text_secondary"
-                    android:layout_marginTop="4dp"/>
+                    android:text="Account Verification"
+                    android:textColor="@color/text_primary"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/txtVerificationStatus"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
                     android:text="Status • Not Verified"
-                    android:textStyle="bold"
-                    android:textColor="@color/accent"
-                    android:layout_marginTop="18dp"/>
+                    android:textColor="@color/text_secondary"
+                    android:textSize="14sp" />
 
                 <TextView
                     android:id="@+id/txtVerificationDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text=""
-                    android:textSize="12sp"
+                    android:layout_marginTop="2dp"
+                    android:text="Verified on: --"
                     android:textColor="@color/text_secondary"
-                    android:visibility="gone"
-                    android:layout_marginTop="2dp"/>
+                    android:textSize="12sp"
+                    android:visibility="gone" />
 
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnVerify"
+                    style="@style/Widget.Material3.Button.TonalButton"
                     android:layout_width="match_parent"
-                    android:layout_height="54dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:text="Verify Now"
                     android:textAllCaps="false"
-                    android:textColor="@color/white"
-                    android:backgroundTint="@color/primary"/>
-
+                    app:shapeAppearanceOverlay="@style/ShapeAppearance.App.Medium" />
             </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
 
-        </androidx.cardview.widget.CardView>
-
-
-        <!-- EARNINGS -->
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="18dp"
-            app:cardCornerRadius="22dp"
-            app:cardBackgroundColor="@color/primary">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="20dp"
-                android:orientation="vertical">
-
-                <TextView
-                    android:text="Total Earnings"
-                    android:textColor="@color/white"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-
-                <TextView
-                    android:id="@+id/txtEarnings"
-                    android:text="Rs. 0"
-                    android:textColor="@color/white"
-                    android:textSize="34sp"
-                    android:textStyle="bold"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-
-            </LinearLayout>
-
-        </androidx.cardview.widget.CardView>
-
-
-        <!-- OVERVIEW -->
-
+        <!-- Navigation Section -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Overview"
-            android:textSize="22sp"
+            android:text="Manage Account"
+            android:textSize="16sp"
             android:textStyle="bold"
             android:textColor="@color/text_primary"
-            android:layout_marginTop="30dp"/>
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="12dp"/>
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btnPortfolio"
+            style="@style/Widget.Material3.Button.TonalButton"
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:text="My Portfolio"
+            android:text="Portfolio Showcase"
             android:textAllCaps="false"
-            android:layout_marginTop="12dp"/>
+            android:gravity="start|center_vertical"
+            app:icon="@drawable/ic_profile_outlined"
+            app:iconPadding="16dp"
+            app:shapeAppearanceOverlay="@style/ShapeAppearance.App.Medium" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btnActiveInProgressJobs"
+            style="@style/Widget.Material3.Button.TonalButton"
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:text="In Progress Jobs"
+            android:layout_marginTop="8dp"
+            android:text="Active Contracts"
             android:textAllCaps="false"
-            android:layout_marginTop="10dp"/>
+            android:gravity="start|center_vertical"
+            app:icon="@drawable/ic_briefcase_outlined"
+            app:iconPadding="16dp"
+            app:shapeAppearanceOverlay="@style/ShapeAppearance.App.Medium" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btnActiveCompletedJobs"
+            style="@style/Widget.Material3.Button.TonalButton"
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:text="Completed Jobs"
+            android:layout_marginTop="8dp"
+            android:text="Work History"
             android:textAllCaps="false"
-            android:layout_marginTop="10dp"/>
+            android:gravity="start|center_vertical"
+            app:icon="@drawable/ic_verified"
+            app:iconPadding="16dp"
+            app:shapeAppearanceOverlay="@style/ShapeAppearance.App.Medium" />
 
-        <Button
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/divider"
+            android:layout_marginVertical="24dp" />
+
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btnLogout"
+            style="@style/Widget.Material3.Button.TextButton"
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:layout_marginTop="24dp"
-            android:text="Logout"
+            android:text="Sign Out"
+            android:textColor="@color/accent"
             android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:backgroundTint="@color/accent"/>
+            android:gravity="start|center_vertical"
+            app:icon="@drawable/ic_delete"
+            app:iconTint="@color/accent"
+            app:iconPadding="16dp" />
 
         <Space
             android:layout_width="match_parent"
-            android:layout_height="120dp"/>
+            android:layout_height="100dp" />
 
     </LinearLayout>
-
 </ScrollView>
+</LinearLayout>

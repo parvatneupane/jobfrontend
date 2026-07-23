@@ -211,6 +211,13 @@ public class FreelancerInProgressJobsFragment extends Fragment {
         });
     }
 
+    private void openConflictDetails(int contractId) {
+        requireActivity().getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, ConflictDetailsFragment.newInstance(contractId))
+                .addToBackStack(null)
+                .commit();
+    }
+
     private class ContractAdapter extends RecyclerView.Adapter<ContractAdapter.ContractViewHolder> {
         @NonNull
         @Override
@@ -257,7 +264,27 @@ public class FreelancerInProgressJobsFragment extends Fragment {
                     holder.itemBinding.btnSubmitWork.setText("Submit Final Work");
                 }
 
+                String taskStatus = job.optString("status");
+
+                if (taskStatus.equalsIgnoreCase("under_review")) {
+                    holder.itemBinding.btnSubmitWork.setEnabled(false);
+                    holder.itemBinding.btnSubmitWork.setAlpha(0.5f);
+                    holder.itemBinding.btnSubmitWork.setText("Locked (Under Review)");
+                    
+                    holder.itemBinding.btnRaiseConflict.setText("View Conflict Details");
+                    holder.itemBinding.btnRaiseConflict.setTextColor(androidx.core.content.ContextCompat.getColor(requireContext(), R.color.primary));
+                } else {
+                    holder.itemBinding.btnSubmitWork.setEnabled(true);
+                    holder.itemBinding.btnSubmitWork.setAlpha(1.0f);
+                    holder.itemBinding.btnRaiseConflict.setText("Problem? Raise a Conflict");
+                    holder.itemBinding.btnRaiseConflict.setTextColor(androidx.core.content.ContextCompat.getColor(requireContext(), R.color.accent));
+                }
+
                 holder.itemBinding.btnSubmitWork.setOnClickListener(v -> {
+                    if (taskStatus.equalsIgnoreCase("under_review")) {
+                        Toast.makeText(requireContext(), "Uploads locked during conflict review", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
                     selectedContractId = contractId;
                     Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
                     intent.setType("*/*");
@@ -267,6 +294,17 @@ public class FreelancerInProgressJobsFragment extends Fragment {
 
                 holder.itemBinding.btnManageWork.setOnClickListener(v -> {
                     showManageSubmissionsDialog(submissions);
+                });
+
+                holder.itemBinding.btnRaiseConflict.setOnClickListener(v -> {
+                    if (taskStatus.equalsIgnoreCase("under_review")) {
+                        openConflictDetails(contractId);
+                    } else {
+                        requireActivity().getSupportFragmentManager().beginTransaction()
+                                .replace(R.id.fragment_container, RaiseConflictFragment.newInstance(contractId))
+                                .addToBackStack(null)
+                                .commit();
+                    }
                 });
 
                 holder.itemView.setOnClickListener(v -> {
@@ -310,8 +348,6 @@ public class FreelancerInProgressJobsFragment extends Fragment {
     private void showManageSubmissionsDialog(List<JSONObject> submissions) {
         if (submissions == null || submissions.isEmpty()) return;
 
-        View dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.fragment_freelancer_jobs, null); // Reuse a generic layout or create simple
-        // Actually let's just create a RecyclerView dynamically for simplicity in a dialog
         RecyclerView rv = new RecyclerView(requireContext());
         rv.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         rv.setLayoutManager(new LinearLayoutManager(requireContext()));
@@ -392,5 +428,11 @@ public class FreelancerInProgressJobsFragment extends Fragment {
                 Toast.makeText(requireContext(), "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
     }
 }

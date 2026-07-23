@@ -1,13 +1,63 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.MiniJobHunt" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorPrimaryContainer">@color/primary_light</item>
+        <item name="colorOnPrimaryContainer">@color/primary_dark</item>
+
+        <item name="colorSecondary">@color/info</item>
+        <item name="colorOnSecondary">@color/white</item>
+
+        <item name="android:windowBackground">@color/background</item>
+        <item name="android:statusBarColor">@color/background</item>
+        <item name="android:windowLightStatusBar">true</item>
+
+        <!-- Typography -->
+        <item name="textAppearanceHeadlineLarge">@style/AppText.HeadlineLarge</item>
+        <item name="textAppearanceTitleMedium">@style/AppText.TitleMedium</item>
+        <item name="textAppearanceBodyLarge">@style/AppText.BodyLarge</item>
     </style>
 
     <style name="Theme.MiniJobHunt" parent="Base.Theme.MiniJobHunt" />
 
+    <!-- Text Styles -->
+    <style name="AppText" parent="" />
+
+    <style name="AppText.HeadlineLarge">
+        <item name="android:textSize">30sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:letterSpacing">-0.02</item>
+    </style>
+
+    <style name="AppText.TitleMedium">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/text_primary</item>
+    </style>
+
+    <style name="AppText.BodyLarge">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/text_secondary</item>
+    </style>
+
     <style name="CircleImage">
         <item name="cornerSize">50%</item>
+    </style>
+
+    <!-- Button Styles -->
+    <style name="AppButton" parent="" />
+
+    <style name="AppButton.Primary" parent="Widget.Material3.Button">
+        <item name="shapeAppearance">@style/ShapeAppearance.App.Medium</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:letterSpacing">0.01</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="ShapeAppearance.App.Medium" parent="ShapeAppearance.Material3.MediumComponent">
+        <item name="cornerSize">16dp</item>
     </style>
 </resources>

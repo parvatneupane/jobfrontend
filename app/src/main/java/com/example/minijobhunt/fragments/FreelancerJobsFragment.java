@@ -256,6 +256,10 @@ public class FreelancerJobsFragment extends Fragment {
                     holder.itemBinding.btnApply.setText("In Progress");
                     holder.itemBinding.btnApply.setEnabled(false);
                     holder.itemBinding.btnApply.setAlpha(0.6f);
+                } else if (status.equalsIgnoreCase("under_review")) {
+                    holder.itemBinding.btnApply.setText("Under Review");
+                    holder.itemBinding.btnApply.setEnabled(false);
+                    holder.itemBinding.btnApply.setAlpha(0.6f);
                 } else {
                     holder.itemBinding.btnApply.setEnabled(true);
                     holder.itemBinding.btnApply.setAlpha(1.0f);
@@ -271,6 +275,10 @@ public class FreelancerJobsFragment extends Fragment {
                 }
 
                 holder.itemBinding.btnApply.setOnClickListener(v -> {
+                    if (status.equalsIgnoreCase("under_review")) {
+                        Toast.makeText(requireContext(), "Job is currently under conflict review", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
                     SharedPreferences pref = requireActivity().getSharedPreferences(Constants.cache, Context.MODE_PRIVATE);
                     int profileId = pref.getInt("profile_id", 0);
 

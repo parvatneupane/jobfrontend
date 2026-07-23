@@ -192,6 +192,11 @@ public class FreeLancerProfileController {
         );
 
         body.put(
+                "status",
+                "active"
+        );
+
+        body.put(
                 "portfolio_url",
                 portfolio
         );

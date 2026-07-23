@@ -252,6 +252,13 @@ public class ClientInProgressJobsFragment extends Fragment {
                 .commit();
     }
 
+    private void openConflictDetails(int contractId) {
+        requireActivity().getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, ConflictDetailsFragment.newInstance(contractId))
+                .addToBackStack(null)
+                .commit();
+    }
+
     private class JobAdapter extends androidx.recyclerview.widget.RecyclerView.Adapter<JobAdapter.JobViewHolder> {
         @NonNull
         @Override
@@ -298,7 +305,30 @@ public class ClientInProgressJobsFragment extends Fragment {
                     holder.itemBinding.btnMarkCompleted.setAlpha(0.5f);
                 }
 
+                String status = contract.optString("status");
+                String taskStatus = job.optString("status");
+
+                if (taskStatus.equalsIgnoreCase("under_review")) {
+                    holder.itemBinding.txtStatus.setText("UNDER REVIEW");
+                    holder.itemBinding.txtStatus.setBackgroundResource(R.drawable.bg_status_pending);
+                    
+                    holder.itemBinding.btnMarkCompleted.setEnabled(false);
+                    holder.itemBinding.btnMarkCompleted.setAlpha(0.5f);
+                    holder.itemBinding.btnMarkCompleted.setText("Under Review");
+                    
+                    holder.itemBinding.btnRaiseConflict.setText("View Conflict Details");
+                    holder.itemBinding.btnRaiseConflict.setTextColor(androidx.core.content.ContextCompat.getColor(requireContext(), R.color.primary));
+                } else {
+                    holder.itemBinding.btnMarkCompleted.setText("Mark as Completed");
+                    holder.itemBinding.btnRaiseConflict.setText("Problem? Raise a Conflict");
+                    holder.itemBinding.btnRaiseConflict.setTextColor(androidx.core.content.ContextCompat.getColor(requireContext(), R.color.accent));
+                }
+
                 holder.itemBinding.btnMarkCompleted.setOnClickListener(v -> {
+                    if (taskStatus.equalsIgnoreCase("under_review")) {
+                        Toast.makeText(requireContext(), "Action disabled while under review", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
                     new android.app.AlertDialog.Builder(requireContext())
                             .setTitle("Complete Job")
                             .setMessage("Are you sure you want to mark this job as completed? This will release payment and close the project.")
@@ -312,6 +342,18 @@ public class ClientInProgressJobsFragment extends Fragment {
                             })
                             .setNegativeButton("No", null)
                             .show();
+                });
+
+                holder.itemBinding.btnRaiseConflict.setOnClickListener(v -> {
+                    if (taskStatus.equalsIgnoreCase("under_review")) {
+                        // Open Conflict Details
+                        openConflictDetails(contractId);
+                    } else {
+                        requireActivity().getSupportFragmentManager().beginTransaction()
+                                .replace(R.id.fragment_container, RaiseConflictFragment.newInstance(contractId))
+                                .addToBackStack(null)
+                                .commit();
+                    }
                 });
 
                 holder.itemView.setOnClickListener(v -> {

@@ -351,4 +351,50 @@ public interface RestApi {
             @Header("Authorization") String token,
             @Query("search") String search
     );
+
+    // ================= CONFLICTS =================
+
+    @GET("conflicts")
+    Call<ResponseBody> getConflicts(@Header("Authorization") String token);
+
+    @Multipart
+    @POST("conflicts")
+    Call<ResponseBody> raiseConflict(
+            @Header("Authorization") String token,
+            @Part("contract_id") RequestBody contractId,
+            @Part("raised_by") RequestBody raisedBy,
+            @Part("title") RequestBody title,
+            @Part("reason") RequestBody reason,
+            @Part MultipartBody.Part attachment
+    );
+
+    @GET("conflicts/{id}")
+    Call<ResponseBody> getConflict(
+            @Header("Authorization") String token,
+            @Path("id") int id
+    );
+
+    @GET("conflicts/user/{userId}")
+    Call<ResponseBody> getMyConflicts(
+            @Header("Authorization") String token,
+            @Path("userId") int userId
+    );
+
+    // ================= CONFLICT REPLIES =================
+
+    @GET("conflict-replies/conflict/{conflictId}")
+    Call<ResponseBody> getConflictReplies(
+            @Header("Authorization") String token,
+            @Path("conflictId") int conflictId
+    );
+
+    @Multipart
+    @POST("conflict-replies")
+    Call<ResponseBody> submitConflictReply(
+            @Header("Authorization") String token,
+            @Part("conflict_id") RequestBody conflictId,
+            @Part("user_id") RequestBody userId,
+            @Part("message") RequestBody message,
+            @Part MultipartBody.Part attachment
+    );
 }

@@ -1,208 +1,298 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true"
+    android:orientation="vertical"
     android:background="@color/background">
 
+    <!-- Header Nav Bar -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="20dp">
+        android:orientation="vertical">
 
-        <!-- Header -->
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Good Morning"
-            android:textColor="@color/text_secondary"
-            android:textSize="16sp" />
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:orientation="horizontal"
-            android:gravity="center_vertical">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:background="@color/surface"
+            android:elevation="4dp"
+            android:paddingHorizontal="20dp">
 
             <TextView
-                android:id="@+id/txtUserName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Loading... 👋"
+                android:layout_centerVertical="true"
+                android:text="Client Dashboard"
                 android:textColor="@color/text_primary"
-                android:textSize="32sp"
+                android:textSize="22sp"
                 android:textStyle="bold" />
 
-            <ImageView
-                android:id="@+id/imgVerifiedBadge"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_marginStart="8dp"
-                android:src="@drawable/ic_verified"
-                android:visibility="gone"
-                android:contentDescription="Verified" />
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/imgTopProfile"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_profile"
+                android:padding="1dp"
+                app:strokeColor="@color/divider"
+                app:strokeWidth="1dp"
+                app:shapeAppearanceOverlay="@style/CircleImage" />
+        </RelativeLayout>
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:background="@color/primary" />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <!-- Top Navigation Area (Modified) -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_alignParentStart="true">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Welcome back,"
+                        android:textColor="@color/text_secondary"
+                        android:textSize="14sp"
+                        android:textAllCaps="true"
+                        android:letterSpacing="0.1" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/txtUserName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="User"
+                            android:textColor="@color/text_primary"
+                            android:textSize="26sp"
+                            android:textStyle="bold" />
+
+                        <ImageView
+                            android:id="@+id/imgVerifiedBadge"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_marginStart="8dp"
+                            android:src="@drawable/ic_verified"
+                            android:visibility="gone"
+                            app:tint="@color/primary" />
+                    </LinearLayout>
+                </LinearLayout>
+
+            </RelativeLayout>
+
+        <!-- Search with Premium Input -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:background="@drawable/bg_input"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingHorizontal="16dp">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_search_outlined"
+                app:tint="@color/text_muted" />
+
+            <EditText
+                android:id="@+id/search"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent"
+                android:hint="Find the best talent..."
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:textSize="15sp"
+                android:textColor="@color/text_primary"
+                android:textColorHint="@color/text_muted" />
         </LinearLayout>
 
+        <!-- Stats Grid - Organized & Readable -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
-            android:text="Manage jobs and hire top freelancers"
-            android:textColor="@color/text_secondary"
-            android:textSize="14sp" />
-
-        <!-- Search -->
-
-        <EditText
-            android:id="@+id/search"
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/bg_input"
-            android:hint="Search freelancers"
-            android:paddingHorizontal="16dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="16dp"
+            android:text="Platform Insights"
             android:textColor="@color/text_primary"
-            android:textColorHint="@color/text_hint" />
-
-        <!-- Stats -->
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="28dp"
-            android:text="Overview"
-            android:textColor="@color/text_primary"
-            android:textSize="22sp"
+            android:textSize="18sp"
             android:textStyle="bold" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="14dp"
             android:orientation="horizontal">
 
-            <androidx.cardview.widget.CardView
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="0dp"
-                android:layout_height="120dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_marginEnd="8dp"
-                app:cardCornerRadius="18dp"
-                app:cardBackgroundColor="@color/primary_light">
+                app:cardCornerRadius="16dp"
+                app:cardElevation="0dp"
+                app:strokeWidth="1dp"
+                app:strokeColor="@color/divider"
+                app:cardBackgroundColor="@color/surface">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="18dp">
+                    android:padding="16dp">
+
+                    <ImageView
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:src="@drawable/ic_briefcase_filled"
+                        android:padding="6dp"
+                        android:background="@drawable/bg_circle_light_blue"
+                        app:tint="@color/info" />
 
                     <TextView
                         android:id="@+id/txtOpenJobsCount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
                         android:text="0"
-                        android:textColor="@color/primary"
-                        android:textSize="30sp"
+                        android:textColor="@color/text_primary"
+                        android:textSize="24sp"
                         android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Open Jobs"
+                        android:text="Active Jobs"
+                        android:textSize="13sp"
                         android:textColor="@color/text_secondary" />
-
                 </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
 
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="0dp"
-                android:layout_height="120dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                app:cardCornerRadius="18dp"
+                android:layout_marginStart="8dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="0dp"
+                app:strokeWidth="1dp"
+                app:strokeColor="@color/divider"
                 app:cardBackgroundColor="@color/surface">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="18dp">
+                    android:padding="16dp">
+
+                    <ImageView
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:src="@drawable/ic_people"
+                        android:padding="6dp"
+                        android:background="@drawable/bg_circle_light_purple"
+                        app:tint="@color/primary" />
 
                     <TextView
                         android:id="@+id/txtApplicationsCount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
                         android:text="0"
-                        android:textColor="@color/info"
-                        android:textSize="30sp"
+                        android:textColor="@color/text_primary"
+                        android:textSize="24sp"
                         android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Applications"
+                        android:text="Total Applicants"
+                        android:textSize="13sp"
                         android:textColor="@color/text_secondary" />
-
                 </LinearLayout>
-
-            </androidx.cardview.widget.CardView>
-
+            </com.google.android.material.card.MaterialCardView>
         </LinearLayout>
 
-        <!-- Actions -->
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:text="Quick Actions"
-            android:textColor="@color/text_primary"
-            android:textSize="22sp"
-            android:textStyle="bold" />
-
-        <Button
+        <!-- Structured Action Button -->
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btnPostJob"
+            style="@style/AppButton.Primary"
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:layout_marginTop="12dp"
-            android:backgroundTint="@color/primary"
-            android:text="Post New Job"
+            android:layout_marginTop="32dp"
+            android:text="Create a New Job Posting"
             android:textAllCaps="false"
-            android:textColor="@color/text_on_primary" />
+            app:icon="@drawable/ic_jobpost"
+            app:iconGravity="textStart"
+            app:iconPadding="12dp" />
 
-
-
-        <!-- Recent Job -->
-
-        <TextView
-            android:layout_width="wrap_content"
+        <!-- Recent Activity Section -->
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:text="Recent Job"
-            android:textColor="@color/text_primary"
-            android:textSize="22sp"
-            android:textStyle="bold" />
+            android:layout_marginTop="40dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Recent Listings"
+                android:textColor="@color/text_primary"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="See All"
+                android:textColor="@color/primary"
+                android:textStyle="bold"
+                android:textSize="14sp" />
+        </LinearLayout>
 
-        <androidx.cardview.widget.CardView
+        <com.google.android.material.card.MaterialCardView
             android:id="@+id/cardRecentJob"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            app:cardCornerRadius="18dp"
-            app:cardBackgroundColor="@color/surface">
+            android:layout_marginTop="16dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="2dp"
+            app:cardBackgroundColor="@color/surface"
+            app:strokeWidth="0dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="18dp">
+                android:padding="20dp">
 
-                <!-- Client Info Header -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -212,144 +302,87 @@
 
                     <com.google.android.material.imageview.ShapeableImageView
                         android:id="@+id/imgRecentClientProfile"
-                        android:layout_width="36dp"
-                        android:layout_height="36dp"
-                        android:scaleType="centerCrop"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
                         android:src="@drawable/ic_profile"
-                        app:shapeAppearanceOverlay="@style/CircleImage"
-                        app:strokeColor="@color/divider"
-                        app:strokeWidth="1dp" />
+                        app:shapeAppearanceOverlay="@style/CircleImage" />
 
-                    <LinearLayout
+                    <TextView
+                        android:id="@+id/txtRecentClientName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical"
-                        android:layout_marginStart="10dp">
+                        android:layout_marginStart="8dp"
+                        android:text="You"
+                        android:textColor="@color/text_primary"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
 
-                        <TextView
-                            android:id="@+id/txtRecentClientName"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="You"
-                            android:textColor="@color/text_primary"
-                            android:textStyle="bold"
-                            android:textSize="14sp" />
-
-                        <ImageView
-                            android:id="@+id/imgRecentVerifiedBadge"
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:layout_marginStart="6dp"
-                            android:src="@drawable/ic_verified"
-                            android:visibility="gone"
-                            android:contentDescription="Verified" />
-
-                    </LinearLayout>
-
+                    <ImageView
+                        android:id="@+id/imgRecentVerifiedBadge"
+                        android:layout_width="14dp"
+                        android:layout_height="14dp"
+                        android:layout_marginStart="4dp"
+                        android:src="@drawable/ic_verified"
+                        android:visibility="gone"
+                        app:tint="@color/primary" />
                 </LinearLayout>
-
-                <TextView
-                    android:id="@+id/txtRecentJobPostedAt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:text="Just now"
-                    android:textColor="@color/text_secondary"
-                    android:textSize="11sp" />
 
                 <TextView
                     android:id="@+id/txtRecentJobTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="No recent jobs"
+                    android:text="No active listings"
                     android:textColor="@color/text_primary"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/txtRecentJobApplicants"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp"
-                    android:text="0 applicants"
-                    android:textColor="@color/text_secondary" />
-
-            </LinearLayout>
-
-        </androidx.cardview.widget.CardView>
-
-        <!-- Suggested -->
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:text="Suggested Freelancers"
-            android:textColor="@color/text_primary"
-            android:textSize="22sp"
-            android:textStyle="bold" />
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            app:cardCornerRadius="18dp"
-            app:cardBackgroundColor="@color/surface">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="18dp">
-
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
                     android:orientation="horizontal"
                     android:gravity="center_vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Sujan Thapa"
-                        android:textColor="@color/text_primary"
-                        android:textStyle="bold" />
 
                     <ImageView
                         android:layout_width="16dp"
                         android:layout_height="16dp"
-                        android:layout_marginStart="4dp"
-                        android:src="@drawable/ic_verified"
-                        android:contentDescription="Verified" />
+                        android:src="@drawable/ic_calendar"
+                        app:tint="@color/text_muted" />
 
+                    <TextView
+                        android:id="@+id/txtRecentJobPostedAt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="6dp"
+                        android:text="--"
+                        android:textColor="@color/text_secondary"
+                        android:textSize="13sp" />
+
+                    <View android:layout_width="1dp" android:layout_height="12dp"
+                        android:background="@color/divider" android:layout_marginHorizontal="12dp"/>
+
+                    <ImageView
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:src="@drawable/ic_people"
+                        app:tint="@color/text_muted" />
+
+                    <TextView
+                        android:id="@+id/txtRecentJobApplicants"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="6dp"
+                        android:text="0 Applicants"
+                        android:textColor="@color/text_secondary"
+                        android:textSize="13sp" />
                 </LinearLayout>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Mobile App Developer"
-                    android:textColor="@color/text_secondary" />
-
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="48dp"
-                    android:layout_marginTop="12dp"
-                    android:backgroundTint="@color/primary"
-                    android:text="Hire"
-                    android:textAllCaps="false"
-                    android:textColor="@color/text_on_primary" />
-
             </LinearLayout>
-
-        </androidx.cardview.widget.CardView>
-
-        <!-- Bottom -->
+        </com.google.android.material.card.MaterialCardView>
 
         <Space
             android:layout_width="match_parent"
-            android:layout_height="120dp" />
+            android:layout_height="100dp" />
 
     </LinearLayout>
-
 </ScrollView>
+</LinearLayout>
