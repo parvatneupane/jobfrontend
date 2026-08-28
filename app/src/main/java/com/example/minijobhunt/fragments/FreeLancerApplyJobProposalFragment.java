@@ -126,7 +126,7 @@ public class FreeLancerApplyJobProposalFragment extends Fragment {
                 }
                 
                 binding.txtBudget.setText("Budget : Rs. " + job.getString("budget"));
-                binding.txtDeadline.setText("Deadline : " + job.getString("deadline"));
+                binding.txtDeadline.setText("Deadline : " + UtilsFunctions.formatDate(job.getString("deadline")));
 
             } catch (Exception e) {
                 e.printStackTrace();

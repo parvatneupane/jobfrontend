@@ -6,42 +6,17 @@
     android:orientation="vertical"
     android:background="@color/background">
 
-    <!-- Header Nav Bar -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:background="@color/surface"
-            android:elevation="4dp"
-            android:paddingHorizontal="20dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:text="Active Contracts"
-                android:textColor="@color/text_primary"
-                android:textSize="22sp"
-                android:textStyle="bold" />
-
-        </RelativeLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="4dp"
-            android:background="@color/primary" />
-    </LinearLayout>
+    <!-- Header -->
+    <include
+        android:id="@+id/header"
+        layout="@layout/layout_common_header" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipToPadding="false"
-        android:padding="8dp"
+        android:paddingVertical="8dp"
         tools:listitem="@layout/item_client_job" />
 
 </LinearLayout>

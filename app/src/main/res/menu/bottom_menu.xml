@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
@@ -15,12 +14,12 @@
     <item
         android:id="@+id/nav_postjob"
         android:icon="@drawable/nav_jobpost_selector"
-        android:title="Post Job"/>
+        android:title="Post"/>
 
     <item
         android:id="@+id/nav_chat"
         android:icon="@drawable/nav_chat_selector"
-        android:title="Chat"/>
+        android:title="Messages"/>
 
     <item
         android:id="@+id/nav_profile"

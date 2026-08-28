@@ -167,7 +167,6 @@ public class FreeLancerPortfolioFragment extends Fragment {
                     binding.txtStatus.setText(profile.optString("availability", "Available"));
                     binding.txtBio.setText(profile.optString("bio", "No bio added."));
                     binding.txtExperience.setText("Experience : " + profile.optInt("experience_years") + " Years");
-                    binding.txtHourlyRate.setText("Hourly Rate : Rs." + profile.optString("hourly_rate") + "/hr");
                     binding.txtLocation.setText("Location : " + profile.optString("location", "-"));
                     binding.txtAvailability.setText("Availability : " + profile.optString("availability", "-"));
                     

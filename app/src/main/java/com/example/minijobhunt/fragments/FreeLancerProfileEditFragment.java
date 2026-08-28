@@ -245,10 +245,6 @@ public class FreeLancerProfileEditFragment
                         .getText()
                         .toString(),
 
-                binding.etRate
-                        .getText()
-                        .toString(),
-
                 binding.etSkills
                         .getText()
                         .toString(),
@@ -305,14 +301,6 @@ public class FreeLancerProfileEditFragment
 
                     )
 
-            );
-
-
-
-            binding.etRate.setText(
-                    p.optString(
-                            "hourly_rate"
-                    )
             );
 
 

@@ -1,20 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
+<com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginHorizontal="8dp"
+    android:layout_marginHorizontal="16dp"
     android:layout_marginVertical="8dp"
-    app:cardCornerRadius="20dp"
-    app:cardElevation="4dp"
-    app:cardBackgroundColor="@color/surface">
+    app:cardCornerRadius="16dp"
+    app:cardElevation="2dp"
+    app:strokeWidth="1dp"
+    app:strokeColor="@color/outline_variant"
+    app:cardBackgroundColor="@color/white">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="18dp">
+        android:padding="20dp">
 
         <!-- Client Info Header -->
         <LinearLayout
@@ -22,23 +25,24 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_vertical"
-            android:layout_marginBottom="12dp">
+            android:layout_marginBottom="16dp">
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/imgClientProfile"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/ic_profile"
                 app:shapeAppearanceOverlay="@style/CircleImage"
-                app:strokeColor="@color/divider"
+                app:strokeColor="@color/outline_variant"
                 app:strokeWidth="1dp" />
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:orientation="vertical"
-                android:layout_marginStart="10dp">
+                android:layout_marginStart="12dp">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -51,18 +55,18 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="You"
-                        android:textColor="@color/text_primary"
+                        android:textColor="@color/primary"
                         android:textStyle="bold"
                         android:textSize="14sp" />
 
                     <ImageView
                         android:id="@+id/imgVerifiedBadge"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
                         android:layout_marginStart="6dp"
                         android:src="@drawable/ic_verified"
                         android:visibility="gone"
-                        android:contentDescription="Verified"/>
+                        app:tint="@color/orange_primary" />
 
                 </LinearLayout>
 
@@ -72,39 +76,7 @@
                     android:layout_height="wrap_content"
                     android:text="Just now"
                     android:textColor="@color/text_secondary"
-                    android:textSize="11sp" />
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical">
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/txtTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Android Developer"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/text_primary"/>
-
-                <TextView
-                    android:id="@+id/txtCategory"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Mobile Development"
-                    android:textColor="@color/text_secondary"
-                    android:textSize="14sp"/>
+                    android:textSize="12sp" />
 
             </LinearLayout>
 
@@ -114,31 +86,45 @@
                 android:layout_height="wrap_content"
                 android:text="OPEN"
                 android:textStyle="bold"
-                android:textSize="12sp"
-                android:textColor="@android:color/white"
-                android:paddingHorizontal="12dp"
+                android:textSize="10sp"
+                android:textColor="@color/white"
+                android:paddingHorizontal="10dp"
                 android:paddingVertical="4dp"
-                android:background="@drawable/bg_status_open"/>
+                android:background="@drawable/bg_status_open"
+                android:letterSpacing="0.05" />
 
         </LinearLayout>
 
-        <View
+        <TextView
+            android:id="@+id/txtTitle"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginVertical="12dp"
-            android:background="#E8EAF2"/>
+            android:layout_height="wrap_content"
+            android:text="Android Developer"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/primary"/>
+
+        <TextView
+            android:id="@+id/txtCategory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="Mobile Development"
+            android:textColor="@color/text_secondary"
+            android:textSize="14sp"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:gravity="center_vertical">
+            android:gravity="center_vertical"
+            android:layout_marginTop="16dp">
 
             <ImageView
                 android:layout_width="16dp"
                 android:layout_height="16dp"
                 android:src="@drawable/ic_money"
-                app:tint="@color/primary" />
+                app:tint="@color/success" />
 
             <TextView
                 android:id="@+id/txtBudget"
@@ -146,64 +132,69 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_marginStart="6dp"
-                android:text="Rs. 35,000"
+                android:text="Rs. 0"
                 android:textStyle="bold"
-                android:textColor="@color/primary"/>
+                android:textColor="@color/success"
+                android:textSize="14sp"/>
 
             <ImageView
                 android:layout_width="16dp"
                 android:layout_height="16dp"
                 android:src="@drawable/ic_calendar"
-                app:tint="@color/text_secondary" />
+                app:tint="@color/text_muted" />
 
             <TextView
                 android:id="@+id/txtDeadline"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
+                android:layout_marginStart="6dp"
                 android:text="Due: 15 Jul"
                 android:textSize="13sp"
                 android:textColor="@color/text_secondary"/>
 
         </LinearLayout>
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginVertical="20dp"
+            android:background="@color/outline_variant"/>
+
         <LinearLayout
             android:id="@+id/layoutClientActions"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="14dp"
             android:orientation="horizontal">
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnApplicants"
+                style="@style/AppButton.Primary"
                 android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_weight="1.5"
-                android:text="Applicants"
-                android:textSize="12sp"
-                android:textAllCaps="false"
-                android:backgroundTint="@color/primary_light"
-                android:textColor="@color/primary"/>
-
-            <Button
-                android:id="@+id/btnEdit"
-                style="?attr/materialButtonOutlinedStyle"
-                android:layout_width="0dp"
-                android:layout_height="40dp"
+                android:layout_height="42dp"
                 android:layout_weight="1"
-                android:layout_marginStart="8dp"
+                android:text="Applicants"
+                android:textSize="13sp"
+                android:textAllCaps="false" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnEdit"
+                style="@style/AppButton.Ghost"
+                android:layout_width="0dp"
+                android:layout_height="42dp"
+                android:layout_weight="0.8"
+                android:layout_marginStart="12dp"
                 android:text="Edit"
-                android:textSize="12sp"
+                android:textSize="13sp"
                 android:textAllCaps="false"/>
 
-            <ImageButton
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnDelete"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="8dp"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:src="@drawable/ic_delete"
-                app:tint="@color/accent"/>
+                style="@style/Widget.Material3.Button.IconButton"
+                android:layout_width="42dp"
+                android:layout_height="42dp"
+                android:layout_marginStart="12dp"
+                app:icon="@drawable/ic_delete"
+                app:iconTint="@color/accent" />
 
         </LinearLayout>
 
@@ -211,32 +202,32 @@
             android:id="@+id/layoutCompletion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
             android:orientation="vertical"
-            android:visibility="gone">
+            android:visibility="gone"
+            tools:visibility="visible">
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnViewWork"
-                style="?attr/materialButtonOutlinedStyle"
+                style="@style/AppButton.Ghost"
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
+                android:layout_height="42dp"
                 android:text="View Submitted Work"
                 android:textAllCaps="false"
-                android:textColor="@color/info"
-                android:visibility="gone"/>
+                android:visibility="gone" />
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnMarkCompleted"
+                style="@style/AppButton.Accent"
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:layout_marginTop="8dp"
+                android:layout_height="42dp"
+                android:layout_marginTop="12dp"
                 android:text="Mark as Completed"
-                android:textAllCaps="false"
-                android:backgroundTint="@color/success"
-                android:textColor="@color/white" />
+                android:textAllCaps="false" />
 
-            <TextView
+
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnRaiseConflict"
+                style="@style/Widget.Material3.Button.TextButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
@@ -244,11 +235,10 @@
                 android:text="Problem? Raise a Conflict"
                 android:textColor="@color/accent"
                 android:textSize="13sp"
-                android:textStyle="bold"
-                android:padding="8dp" />
+                android:textAllCaps="false" />
 
         </LinearLayout>
 
     </LinearLayout>
 
-</androidx.cardview.widget.CardView>
+</com.google.android.material.card.MaterialCardView>

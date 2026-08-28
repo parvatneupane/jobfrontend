@@ -239,7 +239,7 @@ public class FreelancerInProgressJobsFragment extends Fragment {
                 holder.itemBinding.txtClientName.setText(clientName);
                 
                 String deadline = contract.optString("deadline", "N/A");
-                holder.itemBinding.txtJobDetails.setText("Hired by " + clientName + " • Due: " + deadline);
+                holder.itemBinding.txtJobDetails.setText("Hired by " + clientName + " • Due: " + UtilsFunctions.formatDate(deadline));
                 holder.itemBinding.txtJobBudget.setText("Budget: Rs. " + job.getString("budget"));
                 
                 holder.itemBinding.btnApply.setVisibility(View.GONE);

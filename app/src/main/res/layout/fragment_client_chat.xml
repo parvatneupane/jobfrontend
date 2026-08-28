@@ -7,61 +7,118 @@
     android:orientation="vertical"
     android:background="@color/background">
 
-    <!-- Header Nav Bar -->
+    <!-- Header -->
+    <include
+        android:id="@+id/header"
+        layout="@layout/layout_common_header" />
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp">
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:background="@color/surface"
-            android:elevation="4dp"
-            android:paddingHorizontal="20dp">
+            android:layout_height="48dp"
+            android:background="@drawable/bg_input_rounded"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingHorizontal="16dp">
 
-            <TextView
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_search_outlined"
+                app:tint="@color/text_muted" />
+
+            <EditText
+                android:id="@+id/etSearchChat"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent"
+                android:hint="Search conversations..."
+                android:paddingStart="12dp"
+                android:textColor="@color/text_primary"
+                android:textColorHint="@color/text_hint"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+        <!-- Tabs -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/tabAll"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:text="Messages"
-                android:textColor="@color/text_primary"
-                android:textSize="22sp"
-                android:textStyle="bold" />
+                android:gravity="center"
+                android:orientation="vertical"
+                android:clickable="true"
+                android:focusable="true">
 
-        </RelativeLayout>
+                <TextView
+                    android:id="@+id/txtTabAll"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="All"
+                    android:textColor="@color/primary"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:id="@+id/indicatorAll"
+                    android:layout_width="24dp"
+                    android:layout_height="3dp"
+                    android:layout_marginTop="6dp"
+                    android:background="@color/orange_primary" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/tabUnread"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:layout_marginStart="24dp"
+                android:clickable="true"
+                android:focusable="true">
+
+                <TextView
+                    android:id="@+id/txtTabUnread"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Unread"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:id="@+id/indicatorUnread"
+                    android:layout_width="24dp"
+                    android:layout_height="3dp"
+                    android:layout_marginTop="6dp"
+                    android:background="@color/orange_primary"
+                    android:visibility="invisible" />
+            </LinearLayout>
+        </LinearLayout>
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="4dp"
-            android:background="@color/primary" />
-    </LinearLayout>
+            android:layout_height="1dp"
+            android:background="@color/divider"
+            android:layout_marginTop="1dp"/>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="20dp">
-
-        <EditText
-            android:id="@+id/etSearchChat"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvChats"
             android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:background="@drawable/bg_input"
-            android:hint="Search messages"
-            android:paddingHorizontal="18dp"
-            android:textColor="@color/text_primary"
-            android:textColorHint="@color/text_hint"/>
+            android:layout_height="match_parent"
+            android:layout_marginTop="16dp"
+            tools:listitem="@layout/item_chat" />
 
     </LinearLayout>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvChats"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:clipToPadding="false"
-        android:paddingHorizontal="16dp"
-        android:paddingBottom="100dp"
-        tools:listitem="@layout/item_chat" />
-
 </LinearLayout>

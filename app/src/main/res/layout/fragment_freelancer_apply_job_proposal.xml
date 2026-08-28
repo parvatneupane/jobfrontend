@@ -1,40 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/background">
 
-    <!-- Header Nav Bar -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:background="@color/surface"
-            android:elevation="4dp"
-            android:paddingHorizontal="20dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:text="Apply for Job"
-                android:textColor="@color/text_primary"
-                android:textSize="22sp"
-                android:textStyle="bold" />
-
-        </RelativeLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="4dp"
-            android:background="@color/primary" />
-    </LinearLayout>
+    <!-- Header -->
+    <include
+        android:id="@+id/header"
+        layout="@layout/layout_common_header" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -47,7 +23,6 @@
             android:orientation="vertical"
             android:padding="20dp">
 
-            <!-- Title (Modified) -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -56,229 +31,224 @@
                 android:textSize="24sp"
                 android:textColor="@color/text_primary"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Submit a professional proposal to impress the client."
-            android:textColor="@color/text_secondary"
-            android:layout_marginTop="5dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Present yourself professionally to win this project."
+                android:textColor="@color/text_secondary"
+                android:textSize="14sp"
+                android:layout_marginTop="6dp"/>
 
-        <!-- Job Card -->
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="22dp"
-            app:cardCornerRadius="18dp"
-            app:cardElevation="4dp">
-
-            <LinearLayout
+            <!-- Job Card -->
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="18dp">
+                android:layout_marginTop="24dp"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="0dp"
+                app:strokeWidth="1dp"
+                app:strokeColor="@color/outline_variant"
+                app:cardBackgroundColor="@color/white">
 
-                <TextView
-                    android:id="@+id/txtJobTitle"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Android App Development"
-                    android:textStyle="bold"
-                    android:textSize="22sp"
-                    android:textColor="@color/text_primary"/>
+                    android:orientation="vertical"
+                    android:padding="20dp">
 
-                <TextView
-                    android:id="@+id/txtCategory"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:text="Mobile Development"
-                    android:textColor="@color/text_secondary"/>
+                    <TextView
+                        android:id="@+id/txtJobTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Android App Development"
+                        android:textStyle="bold"
+                        android:textSize="18sp"
+                        android:textColor="@color/primary"/>
 
-                <TextView
-                    android:id="@+id/txtBudget"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:text="Budget : Rs. 20,000"
-                    android:textStyle="bold"/>
+                    <TextView
+                        android:id="@+id/txtCategory"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:text="Mobile Development"
+                        android:textColor="@color/text_secondary"
+                        android:textSize="14sp"/>
 
-                <TextView
-                    android:id="@+id/txtDeadline"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:text="Deadline : 25 July 2026"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="16dp"
+                        android:gravity="center_vertical">
 
-            </LinearLayout>
+                        <ImageView
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:src="@drawable/ic_money"
+                            app:tint="@color/success" />
 
-        </androidx.cardview.widget.CardView>
+                        <TextView
+                            android:id="@+id/txtBudget"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="6dp"
+                            android:text="Budget: Rs. 0"
+                            android:textStyle="bold"
+                            android:textColor="@color/success" />
 
-        <!-- Proposal -->
+                        <ImageView
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:src="@drawable/ic_calendar"
+                            app:tint="@color/text_muted" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Proposal Description"
-            android:textStyle="bold"
-            android:textSize="20sp"
-            android:textColor="@color/text_primary"
-            android:layout_marginTop="28dp"/>
+                        <TextView
+                            android:id="@+id/txtDeadline"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="6dp"
+                            android:text="-"
+                            android:textColor="@color/text_secondary"
+                            android:textSize="13sp" />
 
-        <EditText
-            android:id="@+id/etDescription"
-            android:layout_width="match_parent"
-            android:layout_height="180dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/bg_edittext"
-            android:gravity="top|start"
-            android:hint="Introduce yourself and explain why you're the best freelancer for this job..."
-            android:inputType="textMultiLine"
-            android:padding="15dp"/>
+                    </LinearLayout>
 
-        <!-- Completion Time -->
+                </LinearLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Estimated Completion Time"
-            android:textStyle="bold"
-            android:textSize="20sp"
-            android:textColor="@color/text_primary"
-            android:layout_marginTop="25dp"/>
+            </com.google.android.material.card.MaterialCardView>
 
-        <EditText
-            android:id="@+id/etTime"
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/bg_edittext"
-            android:hint="Example : 10 (Days)"
-            android:inputType="number"
-            android:paddingHorizontal="16dp"/>
+            <!-- Proposal Form -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Your Proposal"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:textColor="@color/text_primary"
+                android:layout_marginTop="28dp"/>
 
-        <!-- Achievement Upload -->
+            <EditText
+                android:id="@+id/etDescription"
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/bg_input_rounded"
+                android:gravity="top"
+                android:hint="Explain why you are the best fit for this project, your relevant experience and how you plan to complete it..."
+                android:padding="16dp"
+                android:textColor="@color/text_primary"
+                android:textColorHint="@color/text_hint"
+                android:textSize="14sp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Achievement / Certificate"
-            android:textStyle="bold"
-            android:textSize="20sp"
-            android:textColor="@color/text_primary"
-            android:layout_marginTop="25dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Estimated Delivery Time (Days)"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:textColor="@color/text_primary"
+                android:layout_marginTop="24dp"/>
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            app:cardCornerRadius="15dp"
-            app:cardBackgroundColor="@color/surface">
+            <EditText
+                android:id="@+id/etTime"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/bg_input_rounded"
+                android:hint="e.g. 7"
+                android:inputType="number"
+                android:paddingHorizontal="16dp"
+                android:textColor="@color/text_primary"
+                android:textColorHint="@color/text_hint"
+                android:textSize="14sp" />
 
-            <LinearLayout
+            <!-- Attachment -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Supporting Documents (Optional)"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:textColor="@color/text_primary"
+                android:layout_marginTop="24dp"/>
+
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:padding="22dp">
+                android:layout_marginTop="12dp"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="0dp"
+                app:strokeWidth="1dp"
+                app:strokeColor="@color/outline_variant"
+                app:cardBackgroundColor="@color/white">
 
-                <ImageView
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:src="@drawable/ic_upload"/>
-
-                <ImageView
-                    android:id="@+id/imgPreview"
-                    android:layout_width="120dp"
-                    android:layout_height="120dp"
-                    android:layout_marginTop="10dp"
-                    android:scaleType="centerCrop"
-                    android:visibility="gone" />
-
-                <TextView
-                    android:id="@+id/txtFileName"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="No file selected"
-                    android:layout_marginTop="10dp"
-                    android:textColor="@color/text_secondary"/>
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical"
+                    android:padding="24dp">
 
-                <Button
-                    android:id="@+id/btnChooseFile"
-                    android:layout_width="wrap_content"
-                    android:layout_height="48dp"
-                    android:layout_marginTop="15dp"
-                    android:text="Choose File"
-                    android:textAllCaps="false"
-                    android:backgroundTint="@color/primary"
-                    android:textColor="@android:color/white"/>
+                    <ImageView
+                        android:id="@+id/imgPreview"
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
+                        android:scaleType="centerCrop"
+                        android:visibility="gone"
+                        tools:visibility="visible"
+                        android:background="@color/surface_variant"
+                        app:shapeAppearanceOverlay="@style/ShapeAppearance.App.Medium" />
 
-            </LinearLayout>
+                    <TextView
+                        android:id="@+id/txtFileName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="No file selected"
+                        android:layout_marginTop="8dp"
+                        android:textColor="@color/text_muted"
+                        android:textSize="13sp" />
 
-        </androidx.cardview.widget.CardView>
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnChooseFile"
+                        style="@style/AppButton.Ghost"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:text="Upload Document"
+                        android:textAllCaps="false"
+                        app:icon="@drawable/ic_upload" />
 
-        <!-- Tips -->
+                </LinearLayout>
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
-            app:cardCornerRadius="18dp"
-            app:cardBackgroundColor="@color/primary_light">
+            </com.google.android.material.card.MaterialCardView>
 
-            <LinearLayout
+            <!-- Action Buttons -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnSubmitProposal"
+                style="@style/AppButton.Primary"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="18dp">
+                android:layout_height="48dp"
+                android:layout_marginTop="32dp"
+                android:text="Submit Official Proposal"
+                android:textAllCaps="false" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Proposal Tips"
-                    android:textStyle="bold"
-                    android:textColor="@color/primary"/>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnDeleteProposal"
+                style="@style/Widget.Material3.Button.TextButton"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="8dp"
+                android:text="Withdraw Proposal"
+                android:textAllCaps="false"
+                android:textColor="@color/accent"
+                android:visibility="gone" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:text="• Explain your relevant experience&#10;• Mention your estimated completion time&#10;• Upload certificates or portfolio as proof&#10;• Keep your proposal concise and professional."/>
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="100dp"/>
 
-            </LinearLayout>
+        </LinearLayout>
 
-        </androidx.cardview.widget.CardView>
-
-        <!-- Submit -->
-
-        <Button
-            android:id="@+id/btnSubmitProposal"
-            android:layout_width="match_parent"
-            android:layout_height="58dp"
-            android:layout_marginTop="30dp"
-            android:text="Submit Proposal"
-            android:textStyle="bold"
-            android:textAllCaps="false"
-            android:textColor="@android:color/white"
-            android:backgroundTint="@color/primary"/>
-
-        <Button
-            android:id="@+id/btnDeleteProposal"
-            android:layout_width="match_parent"
-            android:layout_height="58dp"
-            android:layout_marginTop="12dp"
-            android:text="Delete Proposal"
-            android:textStyle="bold"
-            android:textAllCaps="false"
-            android:textColor="@android:color/white"
-            android:backgroundTint="@color/accent"
-            android:visibility="gone" />
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="90dp"/>
-
-    </LinearLayout>
-
-</ScrollView>
+    </ScrollView>
 </LinearLayout>

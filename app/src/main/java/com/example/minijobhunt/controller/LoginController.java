@@ -4,19 +4,18 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 
-import com.example.minijobhunt.model.LoginResponse;
 import com.example.minijobhunt.utils.App;
 import com.example.minijobhunt.utils.Constants;
 import com.example.minijobhunt.views.LoginActivity;
 
-import okhttp3.ResponseBody;
+import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
-
 import retrofit2.Response;
 
 public class LoginController {
@@ -90,72 +89,60 @@ public class LoginController {
         App.api
                 .login(body)
                 .enqueue(
-                        new Callback<LoginResponse>() {
+                        new Callback<ResponseBody>() {
 
                             @Override
                             public void onResponse(
-                                    Call<LoginResponse> call,
-                                    Response<LoginResponse> response
+                                    Call<ResponseBody> call,
+                                    Response<ResponseBody> response
                             ) {
 
-                                if(response.body()==null){
+                                try {
+                                    if (response.isSuccessful() && response.body() != null) {
+                                        String raw = response.body().string();
+                                        JSONObject json = new JSONObject(raw);
 
-                                    view.showError(
-                                            "Unable to login"
-                                    );
+                                        if (json.optBoolean("success", false)) {
+                                            String token = json.optString("token");
+                                            JSONObject user = json.getJSONObject("user");
 
-                                    return;
+                                            saveData(
+                                                    token,
+                                                    user.getInt("id"),
+                                                    user.optString("name"),
+                                                    user.optString("email"),
+                                                    user.optString("role")
+                                            );
 
+                                            view.loginSuccessful();
+                                        } else {
+                                            view.showError(json.optString("message", "Invalid credentials"));
+                                        }
+                                    } else {
+                                        String errorMsg = "Login failed";
+                                        if (response.errorBody() != null) {
+                                            String err = response.errorBody().string();
+                                            try {
+                                                JSONObject errJson = new JSONObject(err);
+                                                errorMsg = errJson.optString("message", err);
+                                            } catch (Exception e) {
+                                                errorMsg = err;
+                                            }
+                                        }
+                                        view.showError(errorMsg);
+                                    }
+                                } catch (Exception e) {
+                                    Log.e("LOGIN", "Error", e);
+                                    view.showError("Server response error");
                                 }
-
-
-                                LoginResponse resp=
-                                        response.body();
-
-
-                                if(resp.isSuccess()){
-
-
-                                    saveData(
-
-                                            resp.getToken(),
-
-                                            resp.getUser().getId(),
-
-                                            resp.getUser().getName(),
-
-                                            resp.getUser().getEmail(),
-
-                                            resp.getUser().getRole()
-
-                                    );
-
-
-                                    view.loginSuccessful();
-
-
-                                }
-                                else{
-
-                                    view.showError(
-                                            resp.getMessage()
-                                    );
-
-                                }
-
                             }
-
 
                             @Override
                             public void onFailure(
-                                    Call<LoginResponse> call,
+                                    Call<ResponseBody> call,
                                     Throwable t) {
-
-                                Log.e(
-                                        "LOGIN",
-                                        t.getMessage()
-                                );
-
+                                Log.e("LOGIN", t.getMessage());
+                                view.showError("Connection error");
                             }
 
                         });
@@ -272,11 +259,6 @@ public class LoginController {
         editor.putInt(
                 "profile_experience",
                 0
-        );
-
-        editor.putString(
-                "profile_rate",
-                ""
         );
 
         editor.apply();

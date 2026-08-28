@@ -1,40 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/background">
 
-    <!-- Header Nav Bar -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:background="@color/surface"
-            android:elevation="4dp"
-            android:paddingHorizontal="20dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:text="Edit Profile"
-                android:textColor="@color/text_primary"
-                android:textSize="22sp"
-                android:textStyle="bold" />
-
-        </RelativeLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="4dp"
-            android:background="@color/primary" />
-    </LinearLayout>
+    <!-- Header -->
+    <include
+        android:id="@+id/header"
+        layout="@layout/layout_common_header" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -47,209 +23,231 @@
             android:orientation="vertical"
             android:padding="20dp">
 
-            <!-- Title (Modified) -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Profile Information"
+                android:text="Professional Information"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 android:textColor="@color/text_primary"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
-            android:text="Complete your freelancer profile"
-            android:textColor="@color/text_secondary"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text="Highlight your expertise to stand out to clients."
+                android:textColor="@color/text_secondary"
+                android:textSize="14sp"/>
 
-        <!-- TITLE -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="0dp"
+                app:strokeWidth="1dp"
+                app:strokeColor="@color/outline_variant"
+                app:cardBackgroundColor="@color/white">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:text="Professional Title"
-            android:textStyle="bold"
-            android:textColor="@color/text_primary"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="20dp">
 
-        <EditText
-            android:id="@+id/etTitle"
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/bg_input"
-            android:hint="Android Developer"
-            android:paddingHorizontal="16dp"/>
+                    <!-- TITLE -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Professional Headline"
+                        android:textStyle="bold"
+                        android:textSize="12sp"
+                        android:textColor="@color/text_secondary"/>
 
-        <!-- BIO -->
+                    <EditText
+                        android:id="@+id/etTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:layout_marginTop="8dp"
+                        android:background="@drawable/bg_input_rounded"
+                        android:hint="e.g. Senior Android Developer"
+                        android:paddingHorizontal="16dp"
+                        android:textColor="@color/text_primary"
+                        android:textColorHint="@color/text_hint"
+                        android:textSize="14sp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="18dp"
-            android:text="Bio"
-            android:textStyle="bold"
-            android:textColor="@color/text_primary"/>
+                    <!-- BIO -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="Professional Bio"
+                        android:textStyle="bold"
+                        android:textSize="12sp"
+                        android:textColor="@color/text_secondary"/>
 
-        <EditText
-            android:id="@+id/etBio"
-            android:layout_width="match_parent"
-            android:layout_height="120dp"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/bg_input"
-            android:gravity="top"
-            android:hint="Tell clients about yourself"
-            android:padding="16dp"/>
+                    <EditText
+                        android:id="@+id/etBio"
+                        android:layout_width="match_parent"
+                        android:layout_height="120dp"
+                        android:layout_marginTop="8dp"
+                        android:background="@drawable/bg_input_rounded"
+                        android:gravity="top"
+                        android:hint="Describe your skills, experience and what you offer..."
+                        android:padding="16dp"
+                        android:textColor="@color/text_primary"
+                        android:textColorHint="@color/text_hint"
+                        android:textSize="14sp" />
 
-        <!-- EXPERIENCE -->
+                    <!-- EXPERIENCE -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="Experience (Years)"
+                        android:textStyle="bold"
+                        android:textSize="12sp"
+                        android:textColor="@color/text_secondary"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="18dp"
-            android:text="Experience (Years)"
-            android:textStyle="bold"/>
+                    <EditText
+                        android:id="@+id/etExperience"
+                        android:layout_width="match_parent"
+                        android:layout_height="52dp"
+                        android:layout_marginTop="8dp"
+                        android:background="@drawable/bg_input_rounded"
+                        android:inputType="number"
+                        android:paddingHorizontal="16dp"
+                        android:textSize="14sp" />
 
-        <EditText
-            android:id="@+id/etExperience"
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/bg_input"
-            android:inputType="number"
-            android:paddingHorizontal="16dp"/>
 
-        <!-- RATE -->
+                    <!-- SKILLS -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="Skills &amp; Expertise"
+                        android:textStyle="bold"
+                        android:textSize="12sp"
+                        android:textColor="@color/text_secondary"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="18dp"
-            android:text="Hourly Rate"
-            android:textStyle="bold"/>
+                    <EditText
+                        android:id="@+id/etSkills"
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp"
+                        android:layout_marginTop="8dp"
+                        android:background="@drawable/bg_input_rounded"
+                        android:gravity="top"
+                        android:hint="Java, Kotlin, UI/UX, etc."
+                        android:padding="16dp"
+                        android:textColor="@color/text_primary"
+                        android:textColorHint="@color/text_hint"
+                        android:textSize="14sp" />
 
-        <EditText
-            android:id="@+id/etRate"
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/bg_input"
-            android:hint="500"
-            android:inputType="numberDecimal"
-            android:paddingHorizontal="16dp"/>
+                    <!-- LOCATION -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="Location"
+                        android:textStyle="bold"
+                        android:textSize="12sp"
+                        android:textColor="@color/text_secondary"/>
 
-        <!-- SKILLS -->
+                    <EditText
+                        android:id="@+id/etLocation"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:layout_marginTop="8dp"
+                        android:background="@drawable/bg_input_rounded"
+                        android:hint="City, Country"
+                        android:paddingHorizontal="16dp"
+                        android:textColor="@color/text_primary"
+                        android:textColorHint="@color/text_hint"
+                        android:textSize="14sp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="18dp"
-            android:text="Skills"
-            android:textStyle="bold"/>
+                    <!-- CATEGORIES -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="Service Categories"
+                        android:textStyle="bold"
+                        android:textSize="12sp"
+                        android:textColor="@color/text_secondary"/>
 
-        <EditText
-            android:id="@+id/etSkills"
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/bg_input"
-            android:gravity="top"
-            android:hint="Java, Laravel, Android"
-            android:padding="16dp"/>
+                    <TextView
+                        android:id="@+id/txtSelectedCategories"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:layout_marginTop="8dp"
+                        android:background="@drawable/bg_input_rounded"
+                        android:gravity="center_vertical"
+                        android:paddingHorizontal="16dp"
+                        android:text="Select Categories"
+                        android:textColor="@color/text_primary"
+                        android:textSize="14sp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:backgroundTint="@color/surface_container" />
 
-        <!-- LOCATION -->
+                    <!-- AVAILABILITY -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="Current Availability"
+                        android:textStyle="bold"
+                        android:textSize="12sp"
+                        android:textColor="@color/text_secondary"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="18dp"
-            android:text="Location"
-            android:textStyle="bold"/>
+                    <Spinner
+                        android:id="@+id/spAvailability"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:layout_marginTop="8dp"
+                        android:background="@drawable/bg_input_rounded" />
 
-        <EditText
-            android:id="@+id/etLocation"
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/bg_input"
-            android:hint="Pokhara"
-            android:paddingHorizontal="16dp"/>
+                    <!-- PORTFOLIO -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="Portfolio Website"
+                        android:textStyle="bold"
+                        android:textSize="12sp"
+                        android:textColor="@color/text_secondary"/>
 
-        <!-- CATEGORIES -->
+                    <EditText
+                        android:id="@+id/etPortfolio"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:layout_marginTop="8dp"
+                        android:background="@drawable/bg_input_rounded"
+                        android:hint="https://yourportfolio.com"
+                        android:inputType="textUri"
+                        android:paddingHorizontal="16dp"
+                        android:textColor="@color/text_primary"
+                        android:textColorHint="@color/text_hint"
+                        android:textSize="14sp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="18dp"
-            android:text="Categories"
-            android:textStyle="bold"
-            android:textColor="@color/text_primary"/>
+                </LinearLayout>
 
-        <TextView
-            android:id="@+id/txtSelectedCategories"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/bg_input"
-            android:padding="16dp"
-            android:text="Select Categories"
-            android:textColor="@color/text_secondary"
-            android:clickable="true"
-            android:focusable="true"/>
+            </com.google.android.material.card.MaterialCardView>
 
-        <!-- AVAILABILITY -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnSaveProfile"
+                style="@style/AppButton.Primary"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="32dp"
+                android:text="Update Professional Profile"
+                android:textAllCaps="false" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="18dp"
-            android:text="Availability"
-            android:textStyle="bold"/>
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="120dp"/>
 
-        <Spinner
-            android:id="@+id/spAvailability"
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:layout_marginTop="8dp"/>
+        </LinearLayout>
 
-        <!-- PORTFOLIO -->
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="18dp"
-            android:text="Portfolio URL"
-            android:textStyle="bold"/>
-
-        <EditText
-            android:id="@+id/etPortfolio"
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/bg_input"
-            android:hint="https://"
-            android:inputType="textUri"
-            android:paddingHorizontal="16dp"/>
-
-        <!-- SAVE -->
-
-        <Button
-            android:id="@+id/btnSaveProfile"
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:layout_marginTop="30dp"
-            android:text="Save Profile"
-            android:textAllCaps="false"
-            android:textStyle="bold"
-            android:textColor="@color/text_on_primary"
-            android:backgroundTint="@color/primary"/>
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="120dp"/>
-
-    </LinearLayout>
-
-</ScrollView>
+    </ScrollView>
 </LinearLayout>

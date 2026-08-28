@@ -203,7 +203,7 @@
     <Button
         android:id="@+id/btnClose"
         android:layout_width="match_parent"
-        android:layout_height="56dp"
+        android:layout_height="48dp"
         android:layout_marginTop="30dp"
         android:text="Close"
         android:textAllCaps="false"

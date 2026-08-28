@@ -24,4 +24,8 @@ public class ChatController {
     public Call<ResponseBody> sendMessage(String token, Map<String, Object> body) {
         return App.api.sendMessage(token, body);
     }
+
+    public Call<ResponseBody> markChatAsRead(String token, int chatId) {
+        return App.api.markChatAsRead(token, chatId);
+    }
 }

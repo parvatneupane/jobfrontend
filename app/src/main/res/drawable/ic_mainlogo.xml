@@ -5,7 +5,7 @@
     android:viewportWidth="512"
     android:viewportHeight="512">
 
-    <!-- 1. Outer Rounded Card Container -->
+    <!-- 1. Outer Rounded Card Container - Using Theme Primary -->
     <path
         android:name="background_card"
         android:pathData="M102,24 h308 c43,0 78,35 78,78 v308 c0,43 -35,78 -78,78 H102 c-43,0 -78,-35 -78,-78 V102 c0,-43 35,-78 78,-78 z">
@@ -14,20 +14,19 @@
                 android:startX="256" android:startY="24"
                 android:endX="256" android:endY="488"
                 android:type="linear">
-                <item android:offset="0.0" android:color="#70BC3C"/>
-                <item android:offset="0.4" android:color="#3FA435"/>
-                <item android:offset="1.0" android:color="#0A5A2B"/>
+                <item android:offset="0.0" android:color="@color/primary_container"/>
+                <item android:offset="1.0" android:color="@color/primary"/>
             </gradient>
         </aapt:attr>
     </path>
 
-    <!-- 2. Clean Circular Cutout Backdrop (No Text Base) -->
+    <!-- 2. Clean Circular Cutout Backdrop -->
     <path
         android:name="inner_white_circle"
-        android:fillColor="#FFFFFF"
+        android:fillColor="@color/white"
         android:pathData="M256,470 c118.2,0 214,-95.8 214,-214 c0,-118.2 -95.8,-214 -214,-214 C137.8,42 42,137.8 42,256 C42,374.2 137.8,470 256,470 z" />
 
-    <!-- 3. Stylized Person Head -->
+    <!-- 3. Stylized Person Head - Using Theme Primary -->
     <path
         android:name="m_head"
         android:pathData="M256,112 A31,31 0,1 1,255.9,112 Z">
@@ -36,43 +35,39 @@
                 android:startX="256" android:startY="81"
                 android:endX="256" android:endY="143"
                 android:type="linear">
-                <item android:offset="0.0" android:color="#3FA435"/>
-                <item android:offset="1.0" android:color="#145A25"/>
+                <item android:offset="0.0" android:color="@color/primary"/>
+                <item android:offset="1.0" android:color="@color/primary_dark"/>
             </gradient>
         </aapt:attr>
     </path>
 
-    <!-- 4. Massive Stylized 'M' Outer Shape -->
+    <!-- 4. Massive Stylized 'M' Outer Shape - Using Theme Primary -->
     <path
         android:name="m_body"
-        android:fillColor="#005B26"
+        android:fillColor="@color/primary"
         android:pathData="M148,136 C156.5,129 170,131 176.5,140 L256,238 L335.5,140 C342,131 355.5,129 364,136 C375,145 383,165 383,190 V340 C383,348 376,354 368,354 H345 C337,354 331,348 331,340 V205 L266,282 C261,288 251,288 246,282 L181,205 V340 C181,348 175,354 167,354 H144 C136,354 130,348 130,340 V190 C130,165 138,145 148,136 Z" />
 
     <!-- 5. Central Professional Briefcase -->
-    <!-- Handle -->
     <path
         android:name="case_handle"
-        android:fillColor="#005B26"
+        android:fillColor="@color/primary"
         android:pathData="M226,270 C226,264 231,259 237,259 H275 C281,259 286,264 286,270 V282 H272 V271 H240 V282 H226 Z" />
-    <!-- Main Briefcase Body -->
     <path
         android:name="case_body"
-        android:fillColor="#005B26"
+        android:fillColor="@color/primary"
         android:pathData="M192,282 H320 C327,282 333,288 333,295 V342 C333,350 326,356 319,355 L256,348 L193,355 C186,356 179,350 179,342 V295 C179,288 185,282 192,282 Z" />
-    <!-- White Horizon Accent Strip -->
     <path
         android:name="case_seam"
-        android:strokeColor="#FFFFFF"
+        android:strokeColor="@color/white"
         android:strokeWidth="4"
         android:strokeLineCap="round"
         android:pathData="M181,314 L244,328 M268,328 L331,314" />
-    <!-- Clasp Lock -->
     <path
         android:name="case_clasp"
-        android:fillColor="#FFFFFF"
+        android:fillColor="@color/white"
         android:pathData="M245,317 H267 C269,317 271,319 271,321 V337 C271,339 269,341 267,341 H245 C243,341 241,339 241,337 V321 C241,319 243,317 245,317 Z" />
 
-    <!-- 6. Enveloping Dynamic Swoosh -->
+    <!-- 6. Enveloping Dynamic Swoosh - Using Theme Accent (Orange) -->
     <path
         android:name="accent_swoosh"
         android:pathData="M116,236 C60,305 72,374 156,386 C258,401 356,346 434,222 C450,195 430,265 378,308 C314,360 206,396 134,362 C78,336 86,268 116,236 Z">
@@ -81,8 +76,8 @@
                 android:startX="70" android:startY="220"
                 android:endX="430" android:endY="380"
                 android:type="linear">
-                <item android:offset="0.0" android:color="#218422"/>
-                <item android:offset="1.0" android:color="#78C23E"/>
+                <item android:offset="0.0" android:color="@color/orange_primary"/>
+                <item android:offset="1.0" android:color="@color/orange_light"/>
             </gradient>
         </aapt:attr>
     </path>

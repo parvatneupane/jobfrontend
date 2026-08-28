@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.minijobhunt.R;
 import com.example.minijobhunt.controller.ChatController;
 import com.example.minijobhunt.databinding.FragmentChatMessageBinding;
 import com.example.minijobhunt.databinding.ItemMessageReceivedBinding;
@@ -65,6 +66,22 @@ public class ChatMessageFragment extends Fragment {
 
         setupRecyclerView();
         loadMessages();
+        markAsRead();
+    }
+
+    private void markAsRead() {
+        SharedPreferences pref = requireActivity().getSharedPreferences(Constants.cache, Context.MODE_PRIVATE);
+        String token = "Bearer " + pref.getString("token", "");
+        
+        chatController.markChatAsRead(token, chatId).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                // Silently handle
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) { }
+        });
     }
 
     private void setupRecyclerView() {
@@ -172,8 +189,20 @@ public class ChatMessageFragment extends Fragment {
                 String time = UtilsFunctions.getTimeAgo(msg.optString("created_at", ""));
 
                 if (holder instanceof SentViewHolder) {
-                    ((SentViewHolder) holder).itemBinding.txtMessage.setText(text);
-                    ((SentViewHolder) holder).itemBinding.txtTime.setText(time);
+                    SentViewHolder sentHolder = (SentViewHolder) holder;
+                    sentHolder.itemBinding.txtMessage.setText(text);
+                    sentHolder.itemBinding.txtTime.setText(time);
+                    
+                    // Read Receipt Feature
+                    boolean isSeen = msg.optBoolean("is_seen", false);
+                    sentHolder.itemBinding.txtStatus.setVisibility(View.VISIBLE);
+                    if (isSeen) {
+                        sentHolder.itemBinding.txtStatus.setText("Seen");
+                        sentHolder.itemBinding.txtStatus.setTextColor(androidx.core.content.ContextCompat.getColor(requireContext(), R.color.success));
+                    } else {
+                        sentHolder.itemBinding.txtStatus.setText("Sent");
+                        sentHolder.itemBinding.txtStatus.setTextColor(androidx.core.content.ContextCompat.getColor(requireContext(), R.color.orange_primary));
+                    }
                 } else {
                     ((ReceivedViewHolder) holder).itemBinding.txtMessage.setText(text);
                     ((ReceivedViewHolder) holder).itemBinding.txtTime.setText(time);

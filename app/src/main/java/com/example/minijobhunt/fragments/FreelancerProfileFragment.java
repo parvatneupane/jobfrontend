@@ -344,11 +344,6 @@ public class FreelancerProfileFragment extends Fragment {
                             );
 
                             editor.putString(
-                                    "profile_rate",
-                                    profile.optString("hourly_rate")
-                            );
-
-                            editor.putString(
                                     "profile_earnings",
                                     earnings
                             );

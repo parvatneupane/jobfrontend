@@ -7,35 +7,10 @@
     android:orientation="vertical"
     android:background="@color/background">
 
-    <!-- Header Nav Bar -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:background="@color/surface"
-            android:elevation="4dp"
-            android:paddingHorizontal="20dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:text="Browse Jobs"
-                android:textColor="@color/text_primary"
-                android:textSize="22sp"
-                android:textStyle="bold" />
-
-        </RelativeLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="4dp"
-            android:background="@color/primary" />
-    </LinearLayout>
+    <!-- Header -->
+    <include
+        android:id="@+id/header"
+        layout="@layout/layout_common_header" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -46,7 +21,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Available Opportunities"
+            android:text="Your Applied Projects"
             android:textSize="24sp"
             android:textStyle="bold"
             android:textColor="@color/text_primary" />
@@ -55,14 +30,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
-            android:text="Discover opportunities that match your skills"
+            android:text="Track the status of projects you've proposed for"
             android:textColor="@color/text_secondary" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="56dp"
+            android:layout_height="48dp"
             android:layout_marginTop="20dp"
-            android:background="@drawable/bg_input"
+            android:background="@drawable/bg_input_rounded"
             android:orientation="horizontal"
             android:gravity="center_vertical"
             android:paddingHorizontal="16dp">
@@ -71,17 +46,18 @@
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:src="@drawable/ic_search_outlined"
-                app:tint="@color/text_secondary" />
+                app:tint="@color/text_muted" />
 
             <EditText
                 android:id="@+id/etSearchJobs"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@android:color/transparent"
-                android:hint="Search jobs"
+                android:hint="Search your applications..."
                 android:paddingStart="12dp"
                 android:textColor="@color/text_primary"
-                android:textColorHint="@color/text_hint" />
+                android:textColorHint="@color/text_hint"
+                android:textSize="14sp" />
 
         </LinearLayout>
 

@@ -6,35 +6,10 @@
     android:orientation="vertical"
     android:background="@color/background">
 
-    <!-- Header Nav Bar -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:background="@color/surface"
-            android:elevation="4dp"
-            android:paddingHorizontal="20dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:text="Find Freelancers"
-                android:textColor="@color/text_primary"
-                android:textSize="22sp"
-                android:textStyle="bold" />
-
-        </RelativeLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="4dp"
-            android:background="@color/primary" />
-    </LinearLayout>
+    <!-- Header -->
+    <include
+        android:id="@+id/header"
+        layout="@layout/layout_common_header" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -63,18 +38,33 @@
             android:text="Search and hire professionals"
             android:textColor="@color/text_secondary" />
 
-        <!-- Search -->
-
-        <EditText
-            android:id="@+id/etSearch"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="56dp"
+            android:layout_height="48dp"
             android:layout_marginTop="20dp"
-            android:background="@drawable/bg_input"
-            android:hint="Search freelancer, skill..."
-            android:paddingHorizontal="18dp"
-            android:textColor="@color/text_primary"
-            android:textColorHint="@color/text_hint" />
+            android:background="@drawable/bg_input_rounded"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingHorizontal="16dp">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_search_outlined"
+                app:tint="@color/text_muted" />
+
+            <EditText
+                android:id="@+id/etSearch"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent"
+                android:hint="Search professional, skill..."
+                android:paddingStart="12dp"
+                android:textColor="@color/text_primary"
+                android:textColorHint="@color/text_hint"
+                android:textSize="14sp" />
+
+        </LinearLayout>
 
         <!-- Filters -->
 
@@ -98,30 +88,31 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="48dp"
-                    android:text="Android"
-                    android:textAllCaps="false"
-                    android:backgroundTint="@color/primary"/>
+            <com.google.android.material.button.MaterialButton
+                style="@style/AppButton.Primary"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:text="Android"
+                android:textAllCaps="false"
+                android:textSize="13sp" />
 
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="48dp"
-                    android:layout_marginStart="10dp"
-                    android:text="Laravel"
-                    android:textAllCaps="false"
-                    android:backgroundTint="@color/surface_variant"
-                    android:textColor="@color/text_primary"/>
+            <com.google.android.material.button.MaterialButton
+                style="@style/AppButton.Ghost"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginStart="12dp"
+                android:text="Laravel"
+                android:textAllCaps="false"
+                android:textSize="13sp" />
 
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="48dp"
-                    android:layout_marginStart="10dp"
-                    android:text="UI/UX"
-                    android:textAllCaps="false"
-                    android:backgroundTint="@color/surface_variant"
-                    android:textColor="@color/text_primary"/>
+            <com.google.android.material.button.MaterialButton
+                style="@style/AppButton.Ghost"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginStart="12dp"
+                android:text="UI/UX"
+                android:textAllCaps="false"
+                android:textSize="13sp" />
 
             </LinearLayout>
 

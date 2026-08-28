@@ -98,9 +98,8 @@ public class FreelancerSearchAdapter extends RecyclerView.Adapter<FreelancerSear
             
             String rating = profile.optString("rating", "0.0");
             String completedJobs = profile.optString("completed_jobs", "0");
-            String rate = profile.optString("hourly_rate", "0");
             
-            holder.txtDetails.setText("⭐ " + rating + " • " + completedJobs + " Jobs • Rs." + rate + "/hr");
+            holder.txtDetails.setText("⭐ " + rating + " • " + completedJobs + " Jobs");
             holder.txtSkills.setText("Skills: " + profile.optString("skills", "N/A"));
 
             holder.btnViewProfile.setOnClickListener(v -> {

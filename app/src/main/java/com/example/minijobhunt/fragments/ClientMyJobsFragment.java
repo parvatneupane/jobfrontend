@@ -265,7 +265,7 @@ public class ClientMyJobsFragment extends Fragment {
                 holder.itemBinding.txtCategory.setText(job.optJSONObject("category") != null ? 
                         job.getJSONObject("category").getString("name") : "General");
                 holder.itemBinding.txtBudget.setText("Rs. " + job.getString("budget"));
-                holder.itemBinding.txtDeadline.setText("Due: " + job.getString("deadline"));
+                holder.itemBinding.txtDeadline.setText("Due: " + UtilsFunctions.formatDate(job.getString("deadline")));
 
                 int applicantCount = proposalCounts.getOrDefault(jobId, 0);
                 holder.itemBinding.btnApplicants.setText("Applicants (" + applicantCount + ")");

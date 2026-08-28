@@ -1,8 +1,5 @@
 package com.example.minijobhunt.utils;
 
-import com.example.minijobhunt.model.LoginResponse;
-import com.example.minijobhunt.model.RegisterResponse;
-
 import java.util.List;
 import java.util.Map;
 
@@ -24,10 +21,10 @@ import retrofit2.http.Query;
 public interface RestApi {
 
     @POST("register")
-    Call<RegisterResponse> register(@Body Map<String, String> body);
+    Call<ResponseBody> register(@Body Map<String, String> body);
 
     @POST("login")
-    Call<LoginResponse> login(@Body Map<String, String> body);
+    Call<ResponseBody> login(@Body Map<String, String> body);
 
     @POST("logout")
     Call<ResponseBody> logout(@Header("Authorization") String token);
@@ -230,6 +227,12 @@ public interface RestApi {
     Call<ResponseBody> sendMessage(
             @Header("Authorization") String token,
             @Body Map<String, Object> body
+    );
+
+    @PUT("chats/{id}/read")
+    Call<ResponseBody> markChatAsRead(
+            @Header("Authorization") String token,
+            @Path("id") int chatId
     );
 
     // ================= SUBMISSIONS =================

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
@@ -43,109 +43,107 @@
 
         <!-- Name -->
         <TextView
-            android:text="Full Name"
-            android:textStyle="bold"
-            android:textColor="@color/text_primary"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:text="Full Name"
+            android:textColor="@color/text_primary"
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/etName"
             android:layout_width="match_parent"
-            android:layout_height="56dp"
+            android:layout_height="52dp"
             android:layout_marginTop="8dp"
-            android:background="@drawable/bg_input"
+            android:background="@drawable/bg_input_rounded"
             android:hint="Enter your full name"
+            android:inputType="textPersonName"
             android:paddingHorizontal="16dp"
             android:textColor="@color/text_primary"
-            android:textColorHint="@color/text_hint"
-            android:inputType="textPersonName"/>
+            android:textColorHint="@color/text_hint" />
 
         <!-- Email -->
         <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginTop="18dp"
             android:text="Email"
-            android:textStyle="bold"
             android:textColor="@color/text_primary"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/etEmail"
             android:layout_width="match_parent"
-            android:layout_height="56dp"
+            android:layout_height="52dp"
             android:layout_marginTop="8dp"
-            android:background="@drawable/bg_input"
+            android:background="@drawable/bg_input_rounded"
             android:hint="Enter your email"
+            android:inputType="textEmailAddress"
             android:paddingHorizontal="16dp"
             android:textColor="@color/text_primary"
-            android:textColorHint="@color/text_hint"
-            android:inputType="textEmailAddress"/>
+            android:textColorHint="@color/text_hint" />
 
         <!-- Password -->
         <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginTop="18dp"
             android:text="Password"
-            android:textStyle="bold"
             android:textColor="@color/text_primary"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/etPassword"
             android:layout_width="match_parent"
-            android:layout_height="56dp"
+            android:layout_height="52dp"
             android:layout_marginTop="8dp"
-            android:background="@drawable/bg_input"
+            android:background="@drawable/bg_input_rounded"
             android:hint="Create a password"
+            android:inputType="textPassword"
             android:paddingHorizontal="16dp"
             android:textColor="@color/text_primary"
-            android:textColorHint="@color/text_hint"
-            android:inputType="textPassword"/>
+            android:textColorHint="@color/text_hint" />
 
         <!-- Confirm Password -->
         <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginTop="18dp"
             android:text="Confirm Password"
-            android:textStyle="bold"
             android:textColor="@color/text_primary"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/etConfirmPassword"
             android:layout_width="match_parent"
-            android:layout_height="56dp"
+            android:layout_height="52dp"
             android:layout_marginTop="8dp"
-            android:background="@drawable/bg_input"
+            android:background="@drawable/bg_input_rounded"
             android:hint="Confirm your password"
+            android:inputType="textPassword"
             android:paddingHorizontal="16dp"
             android:textColor="@color/text_primary"
-            android:textColorHint="@color/text_hint"
-            android:inputType="textPassword"/>
+            android:textColorHint="@color/text_hint" />
 
         <!-- Terms -->
-        <CheckBox
+        <com.google.android.material.checkbox.MaterialCheckBox
             android:id="@+id/chkTerms"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="18dp"
             android:buttonTint="@color/primary"
             android:text="I agree to Terms and Conditions"
-            android:textColor="@color/text_secondary"/>
+            android:textColor="@color/text_secondary" />
 
         <!-- Register -->
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btnRegister"
+            style="@style/AppButton.Primary"
             android:layout_width="match_parent"
-            android:layout_height="56dp"
+            android:layout_height="52dp"
             android:layout_marginTop="22dp"
-            android:backgroundTint="@color/primary"
             android:text="Create Account"
             android:textAllCaps="false"
-            android:textColor="@color/text_on_primary"
-            android:textSize="16sp"
-            android:textStyle="bold"/>
+            android:textSize="16sp" />
 
         <!-- Footer -->
         <LinearLayout
@@ -159,7 +157,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Already have an account? "
-                android:textColor="@color/text_secondary"/>
+                android:textColor="@color/text_secondary" />
 
             <TextView
                 android:id="@+id/txtLogin"
@@ -167,7 +165,7 @@
                 android:layout_height="wrap_content"
                 android:text="Sign In"
                 android:textColor="@color/primary"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
         </LinearLayout>
 

@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="12dp"
-    app:cardCornerRadius="18dp"
-    app:cardBackgroundColor="@color/surface"
-    app:cardElevation="2dp">
+    android:layout_marginHorizontal="16dp"
+    android:layout_marginVertical="8dp"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="2dp"
+    app:strokeWidth="1dp"
+    app:strokeColor="@color/outline_variant"
+    app:cardBackgroundColor="@color/white">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,95 +19,97 @@
         android:orientation="vertical"
         android:padding="20dp">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical">
+            android:layout_height="wrap_content">
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/imgProfile"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:scaleType="centerCrop"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
                 android:src="@drawable/ic_profile"
-                app:shapeAppearanceOverlay="@style/CircleImage" />
+                app:shapeAppearanceOverlay="@style/CircleImage"
+                app:strokeColor="@color/outline_variant"
+                app:strokeWidth="1dp" />
 
             <LinearLayout
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:layout_marginStart="12dp">
+                android:layout_marginStart="16dp"
+                android:layout_toEndOf="@id/imgProfile"
+                android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:gravity="center_vertical">
-
                     <TextView
                         android:id="@+id/txtName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Name"
+                        android:text="Parvat S."
+                        android:textColor="@color/primary"
                         android:textSize="18sp"
-                        android:textStyle="bold"
-                        android:textColor="@color/text_primary"/>
-
+                        android:textStyle="bold" />
                     <ImageView
                         android:id="@+id/imgVerifiedBadge"
-                        android:layout_width="18dp"
-                        android:layout_height="18dp"
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
                         android:layout_marginStart="6dp"
                         android:src="@drawable/ic_verified"
                         android:visibility="gone"
-                        android:contentDescription="Verified"/>
-
+                        app:tint="@color/orange_primary" />
                 </LinearLayout>
 
                 <TextView
                     android:id="@+id/txtTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Title"
+                    android:layout_marginTop="2dp"
+                    android:text="Sr. Android Developer"
                     android:textColor="@color/text_secondary"
-                    android:textSize="14sp"/>
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/txtDetails"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:text="⭐ 0.0 • 0 Jobs"
+                    android:textColor="@color/primary"
+                    android:textStyle="bold"
+                    android:textSize="12sp" />
 
             </LinearLayout>
 
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/txtDetails"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:text="⭐ 0.0 • 0 Jobs • Rs.0/hr"
-            android:textColor="@color/primary"
-            android:textSize="14sp"/>
+        </RelativeLayout>
 
         <TextView
             android:id="@+id/txtSkills"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Skills"
-            android:textColor="@color/text_secondary"
-            android:textSize="13sp"
-            android:maxLines="1"
-            android:ellipsize="end"/>
-
-        <Button
-            android:id="@+id/btnViewProfile"
-            android:layout_width="match_parent"
-            android:layout_height="52dp"
             android:layout_marginTop="16dp"
-            android:text="View Profile"
+            android:text="Skills: Kotlin, Java, Compose"
+            android:textColor="@color/text_secondary"
+            android:textSize="13sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="20dp"
+            android:background="@color/outline_variant" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnViewProfile"
+            style="@style/AppButton.Accent"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:layout_marginTop="20dp"
+            android:text="View Professional Profile"
             android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:backgroundTint="@color/primary"/>
+            android:textSize="14sp" />
 
     </LinearLayout>
 
-</androidx.cardview.widget.CardView>
+</com.google.android.material.card.MaterialCardView>

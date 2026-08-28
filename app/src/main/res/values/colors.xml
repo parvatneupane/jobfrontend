@@ -1,36 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Brand Colors - Modern Indigo Theme -->
-    <color name="primary">#000080</color>
-    <color name="primary_dark">#000066</color>
-    <color name="primary_light">#E6E6FF</color>
-    <color name="primary_container">#CCCCFF</color>
+    <!-- Midnight Kinetic Design System Colors -->
 
-    <!-- Background & Neutral -->
-    <color name="background">#F8FAFC</color>
-    <color name="surface">#FFFFFF</color>
-    <color name="surface_variant">#F1F5F9</color>
-    <color name="divider">#E2E8F0</color>
+    <!-- Primary - Midnight Blue -->
+    <color name="primary">#050e21</color>
+    <color name="on_primary">#ffffff</color>
+    <color name="primary_container">#1b2437</color>
+    <color name="on_primary_container">#828ba2</color>
 
-    <!-- Text Palette - High Contrast & Readability -->
-    <color name="text_primary">#0F172A</color>
-    <color name="text_secondary">#475569</color>
-    <color name="text_muted">#94A3B8</color>
-    <color name="text_hint">#94A3B8</color>
-    <color name="text_on_primary">#FFFFFF</color>
+    <!-- Background & Surface -->
+    <color name="background">#f6faff</color>
+    <color name="on_background">#141d23</color>
+    <color name="surface">#f6faff</color>
+    <color name="on_surface">#141d23</color>
+    <color name="surface_variant">#dbe4ed</color>
+    <color name="on_surface_variant">#45474c</color>
+
+    <!-- Surfaces Containers -->
+    <color name="surface_container_lowest">#ffffff</color>
+    <color name="surface_container_low">#ecf5fe</color>
+    <color name="surface_container">#e6eff8</color>
+    <color name="surface_container_high">#e0e9f2</color>
+    <color name="surface_container_highest">#dbe4ed</color>
+
+    <!-- Neutral/Outlines -->
+    <color name="secondary">#5c5f60</color>
+    <color name="outline">#76777d</color>
+    <color name="outline_variant">#c6c6cd</color>
+    <color name="divider">#c6c6cd</color>
+
+    <!-- High-Intent Accent - Electric Orange -->
+    <color name="orange_primary">#de6a00</color>
+    <color name="orange_dark">#753400</color>
+    <color name="orange_light">#ffdbc8</color>
 
     <!-- Status Palette -->
     <color name="success">#10B981</color>
-    <color name="success_light">#D1FAE5</color>
-    <color name="warning">#F59E0B</color>
-    <color name="warning_light">#FEF3C7</color>
-    <color name="accent">#EF4444</color>
-    <color name="accent_light">#FEE2E2</color>
-    <color name="info">#000080</color>
-    <color name="info_light">#E6E6FF</color>
+    <color name="warning">#f59e0b</color>
+    <color name="error">#ba1a1a</color>
+    <color name="on_error">#ffffff</color>
+    <color name="error_container">#ffdad6</color>
 
     <!-- Essentials -->
     <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>
     <color name="transparent">#00000000</color>
+
+    <!-- Legacy Mappings for consistency -->
+    <color name="primary_dark">#050e21</color>
+    <color name="primary_light">#d9e2fc</color>
+    <color name="text_primary">#141d23</color>
+    <color name="text_secondary">#45474c</color>
+    <color name="text_muted">#76777d</color>
+    <color name="text_hint">#76777d</color>
+    <color name="text_on_primary">#ffffff</color>
+    <color name="accent">#ba1a1a</color>
+    <color name="info">#050e21</color>
 </resources>

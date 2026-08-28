@@ -173,7 +173,6 @@ public class MainActivity2 extends AppCompatActivity {
                         editor.putString("profile_portfolio", profile.optString("portfolio_url"));
                         editor.putString("profile_availability", profile.optString("availability"));
                         editor.putInt("profile_experience", profile.optInt("experience_years"));
-                        editor.putString("profile_rate", profile.optString("hourly_rate"));
                         editor.apply();
                         
                         Log.d("FCM", "Profile synced successfully. ID: " + profile.optInt("id"));

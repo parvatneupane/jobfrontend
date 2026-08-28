@@ -37,7 +37,9 @@ public class ClientChatFragment extends Fragment {
     private FragmentClientChatBinding binding;
     private ChatController chatController;
     private List<JSONObject> chatList = new ArrayList<>();
+    private List<JSONObject> filteredList = new ArrayList<>();
     private ChatAdapter adapter;
+    private String currentTab = "all";
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -51,6 +53,49 @@ public class ClientChatFragment extends Fragment {
         chatController = new ChatController();
 
         setupRecyclerView();
+        setupTabs();
+    }
+
+    private void setupTabs() {
+        binding.tabAll.setOnClickListener(v -> {
+            currentTab = "all";
+            updateTabUI();
+            filterChats();
+        });
+
+        binding.tabUnread.setOnClickListener(v -> {
+            currentTab = "unread";
+            updateTabUI();
+            filterChats();
+        });
+    }
+
+    private void updateTabUI() {
+        if (currentTab.equals("all")) {
+            binding.txtTabAll.setTextColor(androidx.core.content.ContextCompat.getColor(requireContext(), R.color.primary));
+            binding.indicatorAll.setVisibility(View.VISIBLE);
+            binding.txtTabUnread.setTextColor(androidx.core.content.ContextCompat.getColor(requireContext(), R.color.text_secondary));
+            binding.indicatorUnread.setVisibility(View.INVISIBLE);
+        } else {
+            binding.txtTabUnread.setTextColor(androidx.core.content.ContextCompat.getColor(requireContext(), R.color.primary));
+            binding.indicatorUnread.setVisibility(View.VISIBLE);
+            binding.txtTabAll.setTextColor(androidx.core.content.ContextCompat.getColor(requireContext(), R.color.text_secondary));
+            binding.indicatorAll.setVisibility(View.INVISIBLE);
+        }
+    }
+
+    private void filterChats() {
+        filteredList.clear();
+        if (currentTab.equals("all")) {
+            filteredList.addAll(chatList);
+        } else {
+            for (JSONObject chat : chatList) {
+                if (chat.optInt("calculated_unread_count", 0) > 0) {
+                    filteredList.add(chat);
+                }
+            }
+        }
+        adapter.notifyDataSetChanged();
     }
 
     @Override
@@ -87,21 +132,27 @@ public class ClientChatFragment extends Fragment {
                             if (chat.has("contract") && !chat.isNull("contract")) {
                                 clientId = chat.getJSONObject("contract").optInt("client_id", -1);
                             } else {
-                                // Direct client_id in chat object fallback
                                 clientId = chat.optInt("client_id", -1);
                             }
 
                             if (clientId == currentUserId) {
+                                // Calculate unread count locally from messages array
+                                int unreadCount = 0;
+                                if (chat.has("messages")) {
+                                    JSONArray messages = chat.getJSONArray("messages");
+                                    for (int j = 0; j < messages.length(); j++) {
+                                        JSONObject msg = messages.getJSONObject(j);
+                                        if (!msg.optBoolean("is_seen", true) && 
+                                            msg.optInt("sender_id") != currentUserId) {
+                                            unreadCount++;
+                                        }
+                                    }
+                                }
+                                chat.put("calculated_unread_count", unreadCount);
                                 chatList.add(chat);
                             }
                         }
-                        adapter.notifyDataSetChanged();
-                        
-                        if (chatList.isEmpty()) {
-                            Toast.makeText(requireContext(), "No active chats found for your account", Toast.LENGTH_SHORT).show();
-                        }
-                    } else {
-                        Toast.makeText(requireContext(), "Failed to fetch chats: " + response.code(), Toast.LENGTH_SHORT).show();
+                        filterChats();
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -128,7 +179,7 @@ public class ClientChatFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(@NonNull ChatViewHolder holder, int position) {
-            JSONObject chat = chatList.get(position);
+            JSONObject chat = filteredList.get(position);
             try {
                 String name = "Freelancer";
                 if (chat.has("contract") && !chat.isNull("contract")) {
@@ -140,11 +191,25 @@ public class ClientChatFragment extends Fragment {
                 
                 holder.itemBinding.txtChatTitle.setText(name);
                 holder.itemBinding.txtChatAvatar.setText(String.valueOf(name.charAt(0)));
-                
                 holder.itemBinding.txtLastMessage.setText(chat.optString("last_message", "No messages yet"));
                 
                 String date = chat.optString("last_message_time", chat.optString("updated_at", ""));
                 holder.itemBinding.txtChatTime.setText(UtilsFunctions.getTimeAgo(date));
+
+                // Unread Feature
+                int unreadCount = chat.optInt("calculated_unread_count", 0);
+                if (unreadCount > 0) {
+                    holder.itemBinding.txtUnreadCount.setVisibility(View.VISIBLE);
+                    holder.itemBinding.txtUnreadCount.setText(String.valueOf(unreadCount));
+                    holder.itemBinding.txtChatTitle.setTypeface(null, android.graphics.Typeface.BOLD);
+                    holder.itemBinding.txtLastMessage.setTypeface(null, android.graphics.Typeface.BOLD);
+                    holder.itemBinding.txtLastMessage.setTextColor(androidx.core.content.ContextCompat.getColor(requireContext(), R.color.primary));
+                } else {
+                    holder.itemBinding.txtUnreadCount.setVisibility(View.GONE);
+                    holder.itemBinding.txtChatTitle.setTypeface(null, android.graphics.Typeface.NORMAL);
+                    holder.itemBinding.txtLastMessage.setTypeface(null, android.graphics.Typeface.NORMAL);
+                    holder.itemBinding.txtLastMessage.setTextColor(androidx.core.content.ContextCompat.getColor(requireContext(), R.color.text_secondary));
+                }
 
                 final String finalName = name;
                 holder.itemView.setOnClickListener(v -> {
@@ -167,7 +232,7 @@ public class ClientChatFragment extends Fragment {
 
         @Override
         public int getItemCount() {
-            return chatList.size();
+            return filteredList.size();
         }
 
         class ChatViewHolder extends RecyclerView.ViewHolder {

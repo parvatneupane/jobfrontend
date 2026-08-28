@@ -66,11 +66,6 @@ public class FreeLancerProfileController {
             );
 
             profile.put(
-                    "hourly_rate",
-                    pref.getString("profile_rate", "")
-            );
-
-            profile.put(
                     "skills",
                     pref.getString("profile_skills", "")
             );
@@ -122,8 +117,6 @@ public class FreeLancerProfileController {
 
             String experience,
 
-            String rate,
-
             String skills,
 
             String location,
@@ -167,13 +160,6 @@ public class FreeLancerProfileController {
                 experience.isEmpty()
                         ? 0
                         : Integer.parseInt(experience)
-        );
-
-        body.put(
-                "hourly_rate",
-                rate.isEmpty()
-                        ? 0
-                        : Double.parseDouble(rate)
         );
 
         body.put(
@@ -291,11 +277,6 @@ public class FreeLancerProfileController {
                             experience.isEmpty()
                                     ? 0
                                     : Integer.parseInt(experience)
-                    );
-
-                    editor.putString(
-                            "profile_rate",
-                            rate
                     );
 
                     editor.apply();

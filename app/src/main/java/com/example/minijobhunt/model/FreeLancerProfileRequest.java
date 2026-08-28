@@ -10,8 +10,6 @@ public class FreeLancerProfileRequest {
 
     public int experience_years;
 
-    public double hourly_rate;
-
     public String skills;
 
     public String location;

@@ -50,6 +50,24 @@ public class UtilsFunctions {
         }
     }
 
+    public static String formatDate(String dateString) {
+        if (dateString == null || dateString.isEmpty() || dateString.equalsIgnoreCase("null")) return "N/A";
+        
+        try {
+            // Check for common ISO separators (T or space)
+            if (dateString.contains("T")) {
+                return dateString.split("T")[0];
+            } else if (dateString.contains("t")) {
+                return dateString.split("t")[0];
+            } else if (dateString.contains(" ")) {
+                return dateString.split(" ")[0];
+            }
+            return dateString;
+        } catch (Exception e) {
+            return dateString;
+        }
+    }
+
     public static File uriToFile(Context context, Uri uri) {
 
         try {

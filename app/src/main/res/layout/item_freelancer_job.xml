@@ -6,15 +6,15 @@
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="16dp"
     android:layout_marginVertical="8dp"
-    app:cardBackgroundColor="@color/surface"
-    app:cardCornerRadius="18dp"
-    app:cardElevation="4dp">
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="2dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="18dp">
+        android:padding="16dp">
 
         <!-- Client Info Header -->
         <LinearLayout
@@ -31,7 +31,7 @@
                 android:scaleType="centerCrop"
                 android:src="@drawable/ic_profile"
                 app:shapeAppearanceOverlay="@style/CircleImage"
-                app:strokeColor="@color/divider"
+                app:strokeColor="@color/outline_variant"
                 app:strokeWidth="1dp" />
 
             <LinearLayout
@@ -52,7 +52,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Client Name"
-                        android:textColor="@color/text_primary"
+                        android:textColor="@color/primary"
                         android:textStyle="bold"
                         android:textSize="14sp" />
 
@@ -84,9 +84,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Job Title"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:textStyle="bold"
-            android:textColor="@color/text_primary" />
+            android:textColor="@color/primary" />
 
         <TextView
             android:id="@+id/txtJobDetails"
@@ -94,14 +94,16 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
             android:text="Details"
-            android:textColor="@color/text_secondary" />
+            android:textColor="@color/text_secondary"
+            android:textSize="14sp"
+            android:lineSpacingExtra="2dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_vertical"
-            android:layout_marginTop="10dp">
+            android:layout_marginTop="12dp">
 
             <ImageView
                 android:layout_width="16dp"
@@ -116,26 +118,57 @@
                 android:layout_marginStart="6dp"
                 android:text="Budget: Rs. 0"
                 android:textColor="@color/success"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textSize="14sp" />
 
         </LinearLayout>
 
-        <Button
-            android:id="@+id/btnApply"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="16dp"
-            android:text="Apply"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:backgroundTint="@color/primary" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnApply"
+                style="@style/AppButton.Accent"
+                android:layout_width="wrap_content"
+                android:layout_height="42dp"
+                android:layout_alignParentEnd="true"
+                android:paddingHorizontal="24dp"
+                android:text="Apply Now"
+                android:textAllCaps="false"
+                android:textSize="14sp" />
+
+        </RelativeLayout>
 
         <LinearLayout
             android:id="@+id/layoutWork"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:visibility="gone">
+            android:visibility="gone"
+            tools:visibility="visible"
+            xmlns:tools="http://schemas.android.com/tools">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/divider"
+                android:layout_marginVertical="12dp" />
+
+            <TextView
+                android:id="@+id/txtWorkFile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_chip_light"
+                android:padding="12dp"
+                android:text="Attached File: none"
+                android:textColor="@color/primary"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                android:drawableStart="@drawable/ic_upload"
+                android:drawablePadding="8dp"
+                android:visibility="gone" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -143,54 +176,42 @@
                 android:orientation="horizontal"
                 android:layout_marginTop="12dp">
 
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnSubmitWork"
+                    style="@style/AppButton.Primary"
                     android:layout_width="0dp"
-                    android:layout_height="50dp"
+                    android:layout_height="42dp"
                     android:layout_weight="1"
-                    android:text="Add New File"
-                    android:textAllCaps="false"
-                    android:textColor="@color/white"
-                    android:backgroundTint="@color/info" />
+                    android:layout_marginEnd="6dp"
+                    android:text="Submit Work"
+                    android:textSize="13sp"
+                    android:textAllCaps="false" />
 
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnManageWork"
-                    style="?attr/materialButtonOutlinedStyle"
+                    style="@style/AppButton.Ghost"
                     android:layout_width="0dp"
-                    android:layout_height="50dp"
+                    android:layout_height="42dp"
                     android:layout_weight="1"
-                    android:layout_marginStart="8dp"
-                    android:text="Manage Work"
-                    android:textAllCaps="false"
-                    android:textColor="@color/info"
-                    android:visibility="gone"/>
-
+                    android:layout_marginStart="6dp"
+                    android:text="Manage"
+                    android:textSize="13sp"
+                    android:textAllCaps="false" />
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/txtWorkFile"
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnRaiseConflict"
+                style="@style/Widget.Material3.Button.TextButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="Latest submission: View file"
-                android:textColor="@color/primary"
-                android:textSize="12sp"
-                android:gravity="center"
-                android:visibility="gone" />
-
-            <TextView
-                android:id="@+id/btnRaiseConflict"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:layout_gravity="center"
+                android:layout_marginTop="4dp"
                 android:text="Problem? Raise a Conflict"
                 android:textColor="@color/accent"
-                android:textSize="13sp"
-                android:textStyle="bold"
-                android:padding="8dp" />
-
+                android:textSize="12sp"
+                android:textAllCaps="false" />
         </LinearLayout>
+
+
 
     </LinearLayout>
 

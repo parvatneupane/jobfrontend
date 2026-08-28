@@ -3,10 +3,10 @@
     <style name="Base.Theme.MiniJobHunt" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="colorPrimary">@color/primary</item>
         <item name="colorOnPrimary">@color/white</item>
-        <item name="colorPrimaryContainer">@color/primary_light</item>
-        <item name="colorOnPrimaryContainer">@color/primary_dark</item>
+        <item name="colorPrimaryContainer">@color/primary_container</item>
+        <item name="colorOnPrimaryContainer">@color/on_primary_container</item>
 
-        <item name="colorSecondary">@color/info</item>
+        <item name="colorSecondary">@color/secondary</item>
         <item name="colorOnSecondary">@color/white</item>
 
         <item name="android:windowBackground">@color/background</item>
@@ -17,15 +17,16 @@
         <item name="textAppearanceHeadlineLarge">@style/AppText.HeadlineLarge</item>
         <item name="textAppearanceTitleMedium">@style/AppText.TitleMedium</item>
         <item name="textAppearanceBodyLarge">@style/AppText.BodyLarge</item>
+        <item name="textAppearanceLabelMedium">@style/AppText.LabelMedium</item>
     </style>
 
     <style name="Theme.MiniJobHunt" parent="Base.Theme.MiniJobHunt" />
 
-    <!-- Text Styles -->
+    <!-- Text Styles - Midnight Kinetic Scale -->
     <style name="AppText" parent="" />
 
     <style name="AppText.HeadlineLarge">
-        <item name="android:textSize">30sp</item>
+        <item name="android:textSize">24sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/text_primary</item>
         <item name="android:letterSpacing">-0.02</item>
@@ -42,14 +43,24 @@
         <item name="android:textColor">@color/text_secondary</item>
     </style>
 
+    <style name="AppText.LabelMedium">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/text_muted</item>
+        <item name="android:letterSpacing">0.01</item>
+    </style>
+
     <style name="CircleImage">
         <item name="cornerSize">50%</item>
     </style>
 
-    <!-- Button Styles -->
+    <!-- Button Styles - Midnight Kinetic Component Spec -->
     <style name="AppButton" parent="" />
 
+    <!-- Primary: Midnight Blue -->
     <style name="AppButton.Primary" parent="Widget.Material3.Button">
+        <item name="backgroundTint">@color/primary</item>
+        <item name="android:textColor">@color/white</item>
         <item name="shapeAppearance">@style/ShapeAppearance.App.Medium</item>
         <item name="android:insetTop">0dp</item>
         <item name="android:insetBottom">0dp</item>
@@ -57,7 +68,43 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <!-- Accent (Action): Electric Orange -->
+    <style name="AppButton.Accent" parent="Widget.Material3.Button">
+        <item name="backgroundTint">@color/orange_primary</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="shapeAppearance">@style/ShapeAppearance.App.Medium</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:letterSpacing">0.01</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- Ghost: Transparent with Primary Border -->
+    <style name="AppButton.Ghost" parent="Widget.Material3.Button.OutlinedButton">
+        <item name="android:textColor">@color/primary</item>
+        <item name="strokeColor">@color/primary</item>
+        <item name="strokeWidth">1dp</item>
+        <item name="shapeAppearance">@style/ShapeAppearance.App.Medium</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
     <style name="ShapeAppearance.App.Medium" parent="ShapeAppearance.Material3.MediumComponent">
+        <item name="cornerSize">12dp</item>
+    </style>
+
+    <style name="ShapeAppearance.App.Large" parent="ShapeAppearance.Material3.LargeComponent">
         <item name="cornerSize">16dp</item>
+    </style>
+
+    <style name="SentMessageBubble" parent="">
+        <item name="cornerSize">20dp</item>
+        <item name="cornerSizeTopRight">0dp</item>
+    </style>
+
+    <style name="ReceivedMessageBubble" parent="">
+        <item name="cornerSize">20dp</item>
+        <item name="cornerSizeTopLeft">0dp</item>
     </style>
 </resources>

@@ -282,7 +282,7 @@ public class ClientInProgressJobsFragment extends Fragment {
                 holder.itemBinding.txtCategory.setText(job.optJSONObject("category") != null ? 
                         job.getJSONObject("category").getString("name") : "General");
                 holder.itemBinding.txtBudget.setText("Rs. " + job.getString("budget"));
-                holder.itemBinding.txtDeadline.setText("Due: " + contract.optString("deadline"));
+                holder.itemBinding.txtDeadline.setText("Due: " + UtilsFunctions.formatDate(contract.optString("deadline")));
                 holder.itemBinding.txtStatus.setText("HIRED: " + freelancerName.toUpperCase());
                 
                 holder.itemBinding.layoutClientActions.setVisibility(View.GONE);

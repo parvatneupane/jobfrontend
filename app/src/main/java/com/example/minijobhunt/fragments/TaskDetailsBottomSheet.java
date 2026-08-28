@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.minijobhunt.R;
+import com.example.minijobhunt.utils.UtilsFunctions;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 import org.json.JSONObject;
@@ -59,7 +60,7 @@ public class TaskDetailsBottomSheet extends BottomSheetDialogFragment {
                 }
                 
                 txtBudget.setText("Rs. " + task.optString("budget", "0"));
-                txtDeadline.setText(task.optString("deadline", "N/A"));
+                txtDeadline.setText(UtilsFunctions.formatDate(task.optString("deadline", "N/A")));
                 txtExperience.setText(task.optString("min_experience", "N/A"));
                 txtSkills.setText(task.optString("required_skills", "N/A"));
                 txtDescription.setText(task.optString("description", "No description provided."));
