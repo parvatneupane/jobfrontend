@@ -61,6 +61,10 @@ dependencies {
     // OkHttp (required)
     implementation 'com.squareup.okhttp3:okhttp:4.12.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:4.12.0'
+
+    // Google Maps & Places
+    implementation 'com.google.android.gms:play-services-maps:18.2.0'
+    implementation 'com.google.android.libraries.places:places:4.1.0'
 }
 
 apply plugin: 'com.google.gms.google-services'

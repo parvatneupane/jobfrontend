@@ -97,7 +97,12 @@ public interface RestApi {
     // ================= TASKS =================
 
     @GET("tasks")
-    Call<ResponseBody> getTasks(@Header("Authorization") String token);
+    Call<ResponseBody> getTasks(
+            @Header("Authorization") String token,
+            @Query("lat") Double lat,
+            @Query("lng") Double lng,
+            @Query("radius") Float radius
+    );
 
     @POST("tasks")
     Call<ResponseBody> createTask(

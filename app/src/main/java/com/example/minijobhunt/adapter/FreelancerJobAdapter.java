@@ -117,7 +117,13 @@ public class FreelancerJobAdapter extends RecyclerView.Adapter<FreelancerJobAdap
             }
 
             String deadline = job.optString("deadline", "N/A");
-            holder.itemBinding.txtJobDetails.setText(category + " • Due: " + UtilsFunctions.formatDate(deadline));
+            String details = category + " • Due: " + UtilsFunctions.formatDate(deadline);
+
+            double distance = job.optDouble("calculated_distance", -1);
+            if (distance != -1) {
+                details += String.format(java.util.Locale.getDefault(), " • %.1f km away", distance);
+            }
+            holder.itemBinding.txtJobDetails.setText(details);
             holder.itemBinding.txtJobBudget.setText("Budget: Rs. " + job.getString("budget"));
 
             String status = job.optString("status", "open");

@@ -10,6 +10,8 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
+import com.google.android.libraries.places.api.Places;
+
 public class App extends Application {
 
     public static RestApi api;
@@ -18,8 +20,14 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
         initRetrofit();
+        initPlaces();
+    }
 
-
+    private void initPlaces() {
+        if (!Places.isInitialized()) {
+            // Note: Replace with your actual API Key
+            Places.initialize(getApplicationContext(), "AIzaSyDP_MwmKtuyd2DqBDobHW2TEM1R_XFr3Qc");
+        }
     }
 
     private void initRetrofit() {

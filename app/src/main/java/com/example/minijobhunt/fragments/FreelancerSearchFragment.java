@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.minijobhunt.R;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -22,6 +23,8 @@ import com.example.minijobhunt.controller.ProposalController;
 import com.example.minijobhunt.controller.TaskController;
 import com.example.minijobhunt.databinding.FragmentFreelancerSearchBinding;
 import com.example.minijobhunt.utils.Constants;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -38,16 +41,23 @@ import retrofit2.Response;
 
 public class FreelancerSearchFragment extends Fragment {
 
+    private static final int MAP_PICKER_REQUEST_CODE = 2003;
     private FragmentFreelancerSearchBinding binding;
     private TaskController taskController;
-    private List<JSONObject> jobList = new ArrayList<>();
+    private List<JSONObject> allTasks = new ArrayList<>();
+    private List<JSONObject> filteredJobs = new ArrayList<>();
     private FreelancerJobAdapter adapter;
     private Map<Integer, String> appliedJobsCache = new HashMap<>();
     private String selectedCategory = "All";
+    private String selectedLocation = "";
+    private double filterLat = 0, filterLng = 0;
+    private float maxDistanceKm = 100f; // Default "Any"
+    private FusedLocationProviderClient fusedLocationClient;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentFreelancerSearchBinding.inflate(inflater, container, false);
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext());
         return binding.getRoot();
     }
 
@@ -57,6 +67,8 @@ public class FreelancerSearchFragment extends Fragment {
         taskController = new TaskController();
         
         binding.rvJobs.setLayoutManager(new GridLayoutManager(requireContext(), 1));
+        adapter = new FreelancerJobAdapter(filteredJobs, requireActivity(), appliedJobsCache);
+        binding.rvJobs.setAdapter(adapter);
         
         loadCategories();
         // Removed loadAllJobs here because it's called in onResume
@@ -73,7 +85,7 @@ public class FreelancerSearchFragment extends Fragment {
                     selectedCategory = "All";
                 }
             }
-            loadAllJobs(binding.etSearch.getText().toString());
+            applyFilters();
         });
 
         binding.etSearch.addTextChangedListener(new TextWatcher() {
@@ -82,12 +94,96 @@ public class FreelancerSearchFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                loadAllJobs(s.toString());
+                applyFilters();
             }
 
             @Override
             public void afterTextChanged(Editable s) {}
         });
+
+        binding.etLocationFilter.setOnClickListener(v -> startMapPicker());
+        binding.btnClearLocation.setOnClickListener(v -> clearLocationFilter());
+
+        binding.btnNearbyMe.setOnClickListener(v -> {
+            if (filterLat != 0) {
+                clearLocationFilter();
+            } else {
+                useLiveLocation();
+            }
+        });
+
+        // Removed setupDistanceFilter() as it was removed from layout
+    }
+
+    private void clearLocationFilter() {
+        selectedLocation = "";
+        filterLat = 0;
+        filterLng = 0;
+        maxDistanceKm = 100f;
+        binding.etLocationFilter.setText("");
+        binding.btnClearLocation.setVisibility(View.GONE);
+        binding.btnNearbyMe.setIconResource(R.drawable.ic_home_outlined);
+        
+        loadAllJobs(binding.etSearch.getText().toString());
+    }
+
+    private void useLiveLocation() {
+        if (androidx.core.content.ContextCompat.checkSelfPermission(requireContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != android.content.pm.PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, 100);
+            return;
+        }
+
+        Toast.makeText(requireContext(), "Getting live location...", Toast.LENGTH_SHORT).show();
+        fusedLocationClient.getLastLocation().addOnSuccessListener(location -> {
+            if (location != null) {
+                filterLat = location.getLatitude();
+                filterLng = location.getLongitude();
+                selectedLocation = "Nearby Me";
+                binding.etLocationFilter.setText(selectedLocation);
+                binding.btnClearLocation.setVisibility(View.VISIBLE);
+                binding.btnNearbyMe.setIconResource(R.drawable.ic_close);
+                
+                maxDistanceKm = 10f; // 10km radius as requested
+                
+                applyFilters();
+                loadAllJobs(binding.etSearch.getText().toString());
+            } else {
+                Toast.makeText(requireContext(), "Unable to get GPS. Make sure location is ON.", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void startMapPicker() {
+        android.content.Intent intent = new android.content.Intent(requireContext(), com.example.minijobhunt.views.MapPickerActivity.class);
+        intent.putExtra("show_radius", true);
+        
+        // Pass all available jobs to show on map
+        JSONArray array = new JSONArray();
+        for (JSONObject job : allTasks) {
+            array.put(job);
+        }
+        intent.putExtra("jobs_data", array.toString());
+        
+        startActivityForResult(intent, MAP_PICKER_REQUEST_CODE);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable android.content.Intent data) {
+        if (requestCode == MAP_PICKER_REQUEST_CODE) {
+            if (resultCode == android.app.Activity.RESULT_OK && data != null) {
+                selectedLocation = data.getStringExtra("address");
+                filterLat = data.getDoubleExtra("latitude", 0);
+                filterLng = data.getDoubleExtra("longitude", 0);
+                maxDistanceKm = data.getFloatExtra("radius", 100f);
+                
+                binding.etLocationFilter.setText(selectedLocation);
+                binding.btnClearLocation.setVisibility(View.VISIBLE);
+                binding.btnNearbyMe.setIconResource(R.drawable.ic_close);
+                
+                loadAllJobs(binding.etSearch.getText().toString());
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     private void loadCategories() {
@@ -160,18 +256,22 @@ public class FreelancerSearchFragment extends Fragment {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                fetchTasks(token, query);
+                fetchTasks(token);
             }
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                fetchTasks(token, query);
+                fetchTasks(token);
             }
         });
     }
 
-    private void fetchTasks(String token, String query) {
-        taskController.getTasks(token).enqueue(new Callback<ResponseBody>() {
+    private void fetchTasks(String token) {
+        Double lat = (filterLat != 0) ? filterLat : null;
+        Double lng = (filterLng != 0) ? filterLng : null;
+        Float radius = (maxDistanceKm < 100f) ? maxDistanceKm : null;
+
+        taskController.getTasks(token, lat, lng, radius).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (!isAdded() || binding == null) return;
@@ -180,39 +280,11 @@ public class FreelancerSearchFragment extends Fragment {
                         JSONObject root = new JSONObject(response.body().string());
                         JSONArray data = root.getJSONArray("data");
 
-                        jobList.clear();
-                        String q = query.toLowerCase().trim();
-                        
+                        allTasks.clear();
                         for (int i = 0; i < data.length(); i++) {
-                            JSONObject job = data.getJSONObject(i);
-                            String title = job.optString("title", "").toLowerCase();
-                            String jobStatus = job.optString("status", "open");
-                            int jobId = job.optInt("id", -1);
-                            
-                            String category = "";
-                            if (job.optJSONObject("category") != null) {
-                                category = job.getJSONObject("category").optString("name", "");
-                            }
-                            
-                            boolean matchesCategory = selectedCategory.equals("All") || 
-                                                     category.equalsIgnoreCase(selectedCategory);
-                            
-                            boolean matchesSearch = q.isEmpty() || 
-                                                   title.contains(q) || 
-                                                   category.toLowerCase().contains(q);
-                            
-                            // Problem 3 Logic:
-                            // 1. Job must be 'open' (not given to someone else)
-                            // 2. Freelancer must NOT have applied already (keep search clean)
-                            if (matchesCategory && matchesSearch && jobStatus.equalsIgnoreCase("open") && !appliedJobsCache.containsKey(jobId)) {
-                                jobList.add(job);
-                            }
+                            allTasks.add(data.getJSONObject(i));
                         }
-                        
-                        android.util.Log.d("SEARCH", "Jobs loaded: " + jobList.size() + " out of " + data.length());
-                        
-                        adapter = new FreelancerJobAdapter(jobList, requireActivity(), appliedJobsCache);
-                        binding.rvJobs.setAdapter(adapter);
+                        applyFilters();
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -227,15 +299,76 @@ public class FreelancerSearchFragment extends Fragment {
         });
     }
 
+    private void applyFilters() {
+        if (binding == null) return;
+        
+        filteredJobs.clear();
+        String query = binding.etSearch.getText().toString().toLowerCase().trim();
+
+        for (JSONObject job : allTasks) {
+            String title = job.optString("title", "").toLowerCase();
+            String jobStatus = job.optString("status", "open");
+            int jobId = job.optInt("id", -1);
+            
+            String category = "";
+            JSONObject catObj = job.optJSONObject("category");
+            if (catObj != null) {
+                category = catObj.optString("name", "");
+            }
+            
+            double jobLat = job.optDouble("latitude", 0);
+            double jobLng = job.optDouble("longitude", 0);
+
+            // Handle string coordinates from API
+            if (jobLat == 0 && job.has("latitude")) {
+                jobLat = Double.parseDouble(job.optString("latitude", "0"));
+            }
+            if (jobLng == 0 && job.has("longitude")) {
+                jobLng = Double.parseDouble(job.optString("longitude", "0"));
+            }
+            
+            boolean matchesCategory = selectedCategory.equals("All") || 
+                                     category.equalsIgnoreCase(selectedCategory);
+            
+            boolean matchesSearch = query.isEmpty() || 
+                                   title.contains(query) || 
+                                   category.toLowerCase().contains(query);
+            
+            boolean matchesLocation = true;
+            float distanceKm = -1;
+            
+            if (jobLat != 0 && jobLng != 0 && filterLat != 0 && filterLng != 0) {
+                float[] results = new float[1];
+                android.location.Location.distanceBetween(filterLat, filterLng, jobLat, jobLng, results);
+                distanceKm = results[0] / 1000;
+            }
+
+            if (maxDistanceKm < 100f) {
+                if (distanceKm != -1) {
+                    matchesLocation = distanceKm <= maxDistanceKm;
+                } else {
+                    matchesLocation = false;
+                }
+            }
+
+            if (matchesCategory && matchesSearch && matchesLocation && jobStatus.equalsIgnoreCase("open") && !appliedJobsCache.containsKey(jobId)) {
+                try {
+                    job.put("calculated_distance", distanceKm);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                filteredJobs.add(job);
+            }
+        }
+        
+        adapter.notifyDataSetChanged();
+    }
+
     @Override
     public void onResume() {
         super.onResume();
         if (binding != null) {
-            String query = "";
-            if (binding.etSearch.getText() != null) {
-                query = binding.etSearch.getText().toString();
-            }
-            loadAllJobs(query);
+            loadAllJobs(binding.etSearch.getText().toString());
         }
     }
 

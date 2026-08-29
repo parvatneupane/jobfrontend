@@ -76,6 +76,16 @@ public class FreeLancerProfileController {
             );
 
             profile.put(
+                    "latitude",
+                    Double.longBitsToDouble(pref.getLong("profile_latitude", Double.doubleToLongBits(0)))
+            );
+
+            profile.put(
+                    "longitude",
+                    Double.longBitsToDouble(pref.getLong("profile_longitude", Double.doubleToLongBits(0)))
+            );
+
+            profile.put(
                     "availability",
                     pref.getString(
                             "profile_availability",
@@ -120,6 +130,10 @@ public class FreeLancerProfileController {
             String skills,
 
             String location,
+
+            double latitude,
+
+            double longitude,
 
             String availability,
 
@@ -170,6 +184,16 @@ public class FreeLancerProfileController {
         body.put(
                 "location",
                 location
+        );
+
+        body.put(
+                "latitude",
+                latitude
+        );
+
+        body.put(
+                "longitude",
+                longitude
         );
 
         body.put(
@@ -260,6 +284,16 @@ public class FreeLancerProfileController {
                     editor.putString(
                             "profile_location",
                             location
+                    );
+
+                    editor.putLong(
+                            "profile_latitude",
+                            Double.doubleToLongBits(latitude)
+                    );
+
+                    editor.putLong(
+                            "profile_longitude",
+                            Double.doubleToLongBits(longitude)
                     );
 
                     editor.putString(

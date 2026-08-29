@@ -43,6 +43,8 @@ public class TaskDetailsBottomSheet extends BottomSheetDialogFragment {
         TextView txtBudget = view.findViewById(R.id.txtBudget);
         TextView txtDeadline = view.findViewById(R.id.txtDeadline);
         TextView txtExperience = view.findViewById(R.id.txtExperience);
+        TextView txtLocation = view.findViewById(R.id.txtLocation);
+        TextView txtDistance = view.findViewById(R.id.txtDistance);
         TextView txtSkills = view.findViewById(R.id.txtSkills);
         TextView txtDescription = view.findViewById(R.id.txtDescription);
         Button btnClose = view.findViewById(R.id.btnClose);
@@ -62,6 +64,29 @@ public class TaskDetailsBottomSheet extends BottomSheetDialogFragment {
                 txtBudget.setText("Rs. " + task.optString("budget", "0"));
                 txtDeadline.setText(UtilsFunctions.formatDate(task.optString("deadline", "N/A")));
                 txtExperience.setText(task.optString("min_experience", "N/A"));
+                txtLocation.setText(task.optString("location", "Location N/A"));
+
+                // Distance calculation
+                double jobLat = task.optDouble("latitude", 0);
+                double jobLng = task.optDouble("longitude", 0);
+                if (jobLat != 0 && jobLng != 0) {
+                    android.content.SharedPreferences pref = requireActivity().getSharedPreferences(com.example.minijobhunt.utils.Constants.cache, android.content.Context.MODE_PRIVATE);
+                    double userLat = Double.longBitsToDouble(pref.getLong("profile_latitude", Double.doubleToLongBits(0)));
+                    double userLng = Double.longBitsToDouble(pref.getLong("profile_longitude", Double.doubleToLongBits(0)));
+                    
+                    if (userLat != 0 && userLng != 0) {
+                        float[] results = new float[1];
+                        android.location.Location.distanceBetween(userLat, userLng, jobLat, jobLng, results);
+                        float distanceKm = results[0] / 1000;
+                        txtDistance.setText(String.format(java.util.Locale.getDefault(), "%.1f km away", distanceKm));
+                        txtDistance.setVisibility(View.VISIBLE);
+                    } else {
+                        txtDistance.setVisibility(View.GONE);
+                    }
+                } else {
+                    txtDistance.setVisibility(View.GONE);
+                }
+
                 txtSkills.setText(task.optString("required_skills", "N/A"));
                 txtDescription.setText(task.optString("description", "No description provided."));
 

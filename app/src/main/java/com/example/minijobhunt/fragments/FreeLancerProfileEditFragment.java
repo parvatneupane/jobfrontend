@@ -30,92 +30,58 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class FreeLancerProfileEditFragment
-        extends Fragment {
+public class FreeLancerProfileEditFragment extends Fragment {
 
+    private static final int MAP_PICKER_REQUEST_CODE = 2002;
     private FragmentFreeLancerProfileEditBinding binding;
     private FreeLancerProfileController controller;
     private ProfileController globalProfileController;
     
     private List<JSONObject> allCategories = new ArrayList<>();
     private List<Integer> selectedCategoryIds = new ArrayList<>();
-
-
+    private double selectedLat = 0, selectedLng = 0;
 
     @Override
-    public View onCreateView(
-
-            LayoutInflater inflater,
-
-            ViewGroup container,
-
-            Bundle savedInstanceState
-
-    ) {
-
-        binding =
-
-                FragmentFreeLancerProfileEditBinding
-                        .inflate(
-
-                                inflater,
-
-                                container,
-
-                                false
-
-                        );
-
-
-
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        binding = FragmentFreeLancerProfileEditBinding.inflate(inflater, container, false);
         return binding.getRoot();
-
     }
 
-
-
     @Override
-    public void onViewCreated(
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
-            @NonNull View view,
-
-            @Nullable Bundle savedInstanceState
-
-    ) {
-
-        super.onViewCreated(
-                view,
-                savedInstanceState
-        );
-
-
-
-        controller =
-                new FreeLancerProfileController(
-                        this
-                );
-        
+        controller = new FreeLancerProfileController(this);
         globalProfileController = new ProfileController();
 
         setupAvailability();
         loadAllCategories();
-
-
-
-        // load existing profile
         controller.loadProfile();
 
-
-
-        binding.btnSaveProfile
-                .setOnClickListener(
-
-                        v -> saveProfile()
-
-                );
-        
+        binding.btnSaveProfile.setOnClickListener(v -> saveProfile());
         binding.txtSelectedCategories.setOnClickListener(v -> showCategorySelector());
 
+        binding.etLocation.setFocusable(false);
+        binding.etLocation.setClickable(true);
+        binding.etLocation.setOnClickListener(v -> startMapPicker());
+    }
+
+    private void startMapPicker() {
+        android.content.Intent intent = new android.content.Intent(requireContext(), com.example.minijobhunt.views.MapPickerActivity.class);
+        startActivityForResult(intent, MAP_PICKER_REQUEST_CODE);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable android.content.Intent data) {
+        if (requestCode == MAP_PICKER_REQUEST_CODE) {
+            if (resultCode == android.app.Activity.RESULT_OK && data != null) {
+                String address = data.getStringExtra("address");
+                selectedLat = data.getDoubleExtra("latitude", 0);
+                selectedLng = data.getDoubleExtra("longitude", 0);
+                binding.etLocation.setText(address);
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     private void loadAllCategories() {
@@ -189,145 +155,38 @@ public class FreeLancerProfileEditFragment
         binding.txtSelectedCategories.setText(sb.toString());
     }
 
-
-
     private void setupAvailability() {
-
-        String[] items = {
-
-                "available",
-
-                "busy",
-
-                "unavailable"
-
-        };
-
-
-
-        ArrayAdapter<String> adapter =
-
-                new ArrayAdapter<>(
-
-                        requireContext(),
-
-                        android.R.layout
-                                .simple_spinner_dropdown_item,
-
-                        items
-
-                );
-
-
-
-        binding.spAvailability
-                .setAdapter(
-                        adapter
-                );
-
+        String[] items = {"available", "busy", "unavailable"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_dropdown_item, items);
+        binding.spAvailability.setAdapter(adapter);
     }
-
-
 
     private void saveProfile() {
-
         controller.saveProfile(
-
-                binding.etTitle
-                        .getText()
-                        .toString(),
-
-                binding.etBio
-                        .getText()
-                        .toString(),
-
-                binding.etExperience
-                        .getText()
-                        .toString(),
-
-                binding.etSkills
-                        .getText()
-                        .toString(),
-
-                binding.etLocation
-                        .getText()
-                        .toString(),
-
-                binding.spAvailability
-                        .getSelectedItem()
-                        .toString(),
-
-                binding.etPortfolio
-                        .getText()
-                        .toString(),
-                
+                binding.etTitle.getText().toString(),
+                binding.etBio.getText().toString(),
+                binding.etExperience.getText().toString(),
+                binding.etSkills.getText().toString(),
+                binding.etLocation.getText().toString(),
+                selectedLat,
+                selectedLng,
+                binding.spAvailability.getSelectedItem().toString(),
+                binding.etPortfolio.getText().toString(),
                 selectedCategoryIds
-
         );
-
     }
 
-
-
-    public void fillData(
-            JSONObject p
-    ) {
-
+    public void fillData(JSONObject p) {
         try {
+            binding.etTitle.setText(p.optString("title"));
+            binding.etBio.setText(p.optString("bio"));
+            binding.etExperience.setText(String.valueOf(p.optInt("experience_years")));
+            binding.etSkills.setText(p.optString("skills"));
+            binding.etLocation.setText(p.optString("location"));
+            selectedLat = p.optDouble("latitude", 0);
+            selectedLng = p.optDouble("longitude", 0);
+            binding.etPortfolio.setText(p.optString("portfolio_url"));
 
-            binding.etTitle.setText(
-                    p.optString(
-                            "title"
-                    )
-            );
-
-
-
-            binding.etBio.setText(
-                    p.optString(
-                            "bio"
-                    )
-            );
-
-
-
-            binding.etExperience.setText(
-
-                    String.valueOf(
-
-                            p.optInt(
-                                    "experience_years"
-                            )
-
-                    )
-
-            );
-
-
-
-            binding.etSkills.setText(
-                    p.optString(
-                            "skills"
-                    )
-            );
-
-
-
-            binding.etLocation.setText(
-                    p.optString(
-                            "location"
-                    )
-            );
-
-
-
-            binding.etPortfolio.setText(
-                    p.optString(
-                            "portfolio_url"
-                    )
-            );
-
-            // Handle categories
             JSONArray categories = p.optJSONArray("categories");
             if (categories != null) {
                 selectedCategoryIds.clear();
@@ -337,109 +196,29 @@ public class FreeLancerProfileEditFragment
                 updateSelectedCategoriesText();
             }
 
-
-
-            String availability =
-
-                    p.optString(
-                            "availability",
-                            "available"
-                    );
-
-
-
-            ArrayAdapter adapter =
-
-                    (ArrayAdapter)
-
-                            binding
-                                    .spAvailability
-                                    .getAdapter();
-
-
-
-            if (
-                    adapter != null
-            ) {
-
-                int pos =
-
-                        adapter.getPosition(
-                                availability
-                        );
-
-
-
-                binding.spAvailability
-                        .setSelection(
-                                pos
-                        );
-
+            String availability = p.optString("availability", "available");
+            ArrayAdapter adapter = (ArrayAdapter) binding.spAvailability.getAdapter();
+            if (adapter != null) {
+                int pos = adapter.getPosition(availability);
+                binding.spAvailability.setSelection(pos);
             }
-
-        }
-
-        catch (
-                Exception e
-        ) {
-
+        } catch (Exception e) {
             e.printStackTrace();
-
         }
-
     }
-
-
 
     public void profileSaved() {
-
-        Toast.makeText(
-
-                getContext(),
-
-                "Profile Saved",
-
-                Toast.LENGTH_SHORT
-
-        ).show();
-
-
-
-        requireActivity()
-
-                .getSupportFragmentManager()
-
-                .popBackStack();
-
+        Toast.makeText(getContext(), "Profile Saved", Toast.LENGTH_SHORT).show();
+        requireActivity().getSupportFragmentManager().popBackStack();
     }
 
-
-
-    public void showError(
-            String msg
-    ) {
-
-        Toast.makeText(
-
-                getContext(),
-
-                msg,
-
-                Toast.LENGTH_LONG
-
-        ).show();
-
+    public void showError(String msg) {
+        Toast.makeText(getContext(), msg, Toast.LENGTH_LONG).show();
     }
-
-
 
     @Override
     public void onDestroyView() {
-
         super.onDestroyView();
-
         binding = null;
-
     }
-
 }

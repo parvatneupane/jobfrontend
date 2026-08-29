@@ -14,7 +14,11 @@ public class TaskController {
     }
 
     public Call<ResponseBody> getTasks(String token) {
-        return App.api.getTasks(token);
+        return App.api.getTasks(token, null, null, null);
+    }
+
+    public Call<ResponseBody> getTasks(String token, Double lat, Double lng, Float radius) {
+        return App.api.getTasks(token, lat, lng, radius);
     }
 
     public Call<ResponseBody> createTask(String token, Map<String, Object> body) {
