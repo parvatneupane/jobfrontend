@@ -221,11 +221,10 @@
                         android:letterSpacing="0.01" />
 
                     <ImageView
-                        android:layout_width="14dp"
-                        android:layout_height="14dp"
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
                         android:layout_marginStart="4dp"
-                        android:src="@drawable/ic_delete"
-                        android:rotation="135"
+                        android:src="@drawable/ic_chevron_right"
                         app:tint="@color/primary" />
                 </LinearLayout>
             </RelativeLayout>

@@ -283,8 +283,7 @@
                     <ImageView
                         android:layout_width="16dp"
                         android:layout_height="16dp"
-                        android:src="@drawable/ic_delete"
-                        android:rotation="135"
+                        android:src="@drawable/ic_chevron_right"
                         app:tint="@color/text_muted" />
                 </LinearLayout>
 
@@ -315,8 +314,7 @@
                     <ImageView
                         android:layout_width="16dp"
                         android:layout_height="16dp"
-                        android:src="@drawable/ic_delete"
-                        android:rotation="135"
+                        android:src="@drawable/ic_chevron_right"
                         app:tint="@color/text_muted" />
                 </LinearLayout>
 
@@ -346,10 +344,9 @@
                         android:textSize="16sp" />
 
                     <ImageView
-                        android:layout_width="10dp"
+                        android:layout_width="16dp"
                         android:layout_height="16dp"
-                        android:rotation="135"
-                        android:src="@drawable/ic_delete"
+                        android:src="@drawable/ic_chevron_right"
                         app:tint="@color/text_muted" />
                 </LinearLayout>
 
@@ -367,7 +364,7 @@
                     <ImageView
                         android:layout_width="24dp"
                         android:layout_height="24dp"
-                        android:src="@drawable/ic_delete"
+                        android:src="@drawable/ic_logout"
                         app:tint="@color/accent" />
                     <TextView
                         android:layout_width="0dp"

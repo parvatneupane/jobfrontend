@@ -32,11 +32,15 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import android.text.Editable;
+import android.text.TextWatcher;
+
 public class FreelancerJobsFragment extends Fragment {
 
     private FragmentFreelancerJobsBinding binding;
     private TaskController controller;
-    private List<JSONObject> jobList = new ArrayList<>();
+    private List<JSONObject> allJobs = new ArrayList<>();
+    private List<JSONObject> filteredJobs = new ArrayList<>();
     private FreelancerJobAdapter adapter;
     private Map<Integer, String> appliedJobsCache = new HashMap<>();
 
@@ -52,13 +56,46 @@ public class FreelancerJobsFragment extends Fragment {
 
         controller = new TaskController();
         setupRecyclerView();
+        setupSearch();
         loadAllJobs();
     }
 
     private void setupRecyclerView() {
-        adapter = new FreelancerJobAdapter(jobList, requireActivity(), appliedJobsCache);
+        adapter = new FreelancerJobAdapter(filteredJobs, requireActivity(), appliedJobsCache);
         binding.recyclerViewJobs.setLayoutManager(new LinearLayoutManager(requireContext()));
         binding.recyclerViewJobs.setAdapter(adapter);
+    }
+
+    private void setupSearch() {
+        binding.etSearchJobs.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                filterJobs(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
+    }
+
+    private void filterJobs(String query) {
+        filteredJobs.clear();
+        String q = query.toLowerCase().trim();
+        for (JSONObject job : allJobs) {
+            String title = job.optString("title", "").toLowerCase();
+            String category = "";
+            if (job.optJSONObject("category") != null) {
+                category = job.optJSONObject("category").optString("name", "").toLowerCase();
+            }
+            
+            if (q.isEmpty() || title.contains(q) || category.contains(q)) {
+                filteredJobs.add(job);
+            }
+        }
+        adapter.notifyDataSetChanged();
     }
 
     private void loadAllJobs() {
@@ -108,7 +145,7 @@ public class FreelancerJobsFragment extends Fragment {
                         JSONObject root = new JSONObject(response.body().string());
                         JSONArray data = root.getJSONArray("data");
 
-                        jobList.clear();
+                        allJobs.clear();
                         for (int i = 0; i < data.length(); i++) {
                             JSONObject job = data.getJSONObject(i);
                             int jobId = job.optInt("id", -1);
@@ -117,19 +154,18 @@ public class FreelancerJobsFragment extends Fragment {
                             if (appliedJobsCache.containsKey(jobId)) {
                                 String proposalStatus = appliedJobsCache.get(jobId);
                                 
-                                // Problem 3 logic:
+                                // logic:
                                 // 1. If proposal is accepted, don't show here (it moves to In Progress)
                                 // 2. If proposal is rejected, don't show here
                                 if (proposalStatus != null && 
                                     !proposalStatus.equalsIgnoreCase("accepted") &&
                                     !proposalStatus.equalsIgnoreCase("rejected")) {
-                                    jobList.add(job);
+                                    allJobs.add(job);
                                 }
                             }
                         }
                         
-                        adapter = new FreelancerJobAdapter(jobList, requireActivity(), appliedJobsCache);
-                        binding.recyclerViewJobs.setAdapter(adapter);
+                        filterJobs(binding.etSearchJobs.getText().toString());
                     }
                 } catch (Exception e) {
                     e.printStackTrace();

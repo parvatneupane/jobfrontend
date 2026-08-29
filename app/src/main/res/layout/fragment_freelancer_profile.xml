@@ -289,7 +289,7 @@
             android:textColor="@color/accent"
             android:textAllCaps="false"
             android:gravity="start|center_vertical"
-            app:icon="@drawable/ic_delete"
+            app:icon="@drawable/ic_logout"
             app:iconTint="@color/accent"
             app:iconPadding="16dp" />
 

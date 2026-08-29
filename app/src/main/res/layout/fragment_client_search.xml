@@ -83,38 +83,23 @@
             android:scrollbars="none"
             android:layout_marginTop="12dp">
 
-            <LinearLayout
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chipGroupCategories"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                app:singleLine="true"
+                app:singleSelection="true"
+                app:selectionRequired="false">
 
-            <com.google.android.material.button.MaterialButton
-                style="@style/AppButton.Primary"
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:text="Android"
-                android:textAllCaps="false"
-                android:textSize="13sp" />
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipAll"
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="All"
+                    android:checked="true" />
 
-            <com.google.android.material.button.MaterialButton
-                style="@style/AppButton.Ghost"
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:layout_marginStart="12dp"
-                android:text="Laravel"
-                android:textAllCaps="false"
-                android:textSize="13sp" />
-
-            <com.google.android.material.button.MaterialButton
-                style="@style/AppButton.Ghost"
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:layout_marginStart="12dp"
-                android:text="UI/UX"
-                android:textAllCaps="false"
-                android:textSize="13sp" />
-
-            </LinearLayout>
+            </com.google.android.material.chip.ChipGroup>
 
         </HorizontalScrollView>
 

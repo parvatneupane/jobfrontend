@@ -43,10 +43,12 @@ public class ClientMyJobsFragment extends Fragment {
     private TaskController controller;
     private VerificationController verificationController;
     private ProposalController proposalController;
-    private List<JSONObject> jobList = new ArrayList<>();
+    private List<JSONObject> allJobs = new ArrayList<>();
+    private List<JSONObject> filteredJobs = new ArrayList<>();
     private Map<Integer, Integer> proposalCounts = new HashMap<>();
     private JobAdapter adapter;
     private boolean isClientVerified = false;
+    private String currentFilter = "all";
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -63,8 +65,37 @@ public class ClientMyJobsFragment extends Fragment {
         proposalController = new ProposalController();
 
         setupRecyclerView();
+        setupFilter();
         loadMyJobs();
         checkVerificationStatus();
+    }
+
+    private void setupFilter() {
+        binding.chipGroupFilter.setOnCheckedStateChangeListener((group, checkedIds) -> {
+            if (checkedIds.isEmpty()) return;
+            int id = checkedIds.get(0);
+            if (id == R.id.chipAll) {
+                currentFilter = "all";
+            } else if (id == R.id.chipOpen) {
+                currentFilter = "open";
+            } else if (id == R.id.chipInProgress) {
+                currentFilter = "in_progress";
+            }
+            applyFilter();
+        });
+    }
+
+    private void applyFilter() {
+        filteredJobs.clear();
+        for (JSONObject job : allJobs) {
+            String status = job.optString("status", "").toLowerCase();
+            if (currentFilter.equals("all")) {
+                filteredJobs.add(job);
+            } else if (status.equals(currentFilter)) {
+                filteredJobs.add(job);
+            }
+        }
+        adapter.notifyDataSetChanged();
     }
 
     private void checkVerificationStatus() {
@@ -144,15 +175,16 @@ public class ClientMyJobsFragment extends Fragment {
                         JSONObject root = new JSONObject(response.body().string());
                         JSONArray data = root.getJSONArray("data");
 
-                        jobList.clear();
+                        allJobs.clear();
                         for (int i = 0; i < data.length(); i++) {
                             JSONObject job = data.getJSONObject(i);
-                            // Filter by logged-in user ID
-                            if (job.optInt("user_id") == currentUserId) {
-                                jobList.add(job);
+                            String status = job.optString("status", "").toLowerCase();
+                            // Filter by logged-in user ID AND exclude completed jobs
+                            if (job.optInt("user_id") == currentUserId && !status.equals("completed")) {
+                                allJobs.add(job);
                             }
                         }
-                        adapter.notifyDataSetChanged();
+                        applyFilter();
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -200,7 +232,7 @@ public class ClientMyJobsFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(@NonNull JobViewHolder holder, int position) {
-            JSONObject job = jobList.get(position);
+            JSONObject job = filteredJobs.get(position);
             try {
                 int jobId = job.getInt("id");
 
@@ -324,7 +356,7 @@ public class ClientMyJobsFragment extends Fragment {
 
         @Override
         public int getItemCount() {
-            return jobList.size();
+            return filteredJobs.size();
         }
 
         class JobViewHolder extends androidx.recyclerview.widget.RecyclerView.ViewHolder {
@@ -334,6 +366,12 @@ public class ClientMyJobsFragment extends Fragment {
                 this.itemBinding = itemBinding;
             }
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        loadMyJobs();
     }
 
     @Override
