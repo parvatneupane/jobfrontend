@@ -82,21 +82,23 @@
                 </LinearLayout>
 
                 <TextView
+                    android:id="@+id/txtSlogan"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
-                    android:text="San Francisco, CA"
+                    android:text="Empowering your business with top talent"
                     android:textColor="@color/text_secondary"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    android:textStyle="italic" />
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnEditProfile"
+                    android:id="@+id/btnPostJob"
                     android:layout_width="wrap_content"
                     android:layout_height="50dp"
                     android:layout_marginTop="20dp"
                     android:backgroundTint="@color/orange_primary"
                     android:paddingHorizontal="32dp"
-                    android:text="Edit Profile"
+                    android:text="Post a New Job"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
                     android:textSize="14sp"

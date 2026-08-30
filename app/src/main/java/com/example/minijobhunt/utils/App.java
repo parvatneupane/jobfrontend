@@ -1,7 +1,8 @@
 package com.example.minijobhunt.utils;
 
 import android.app.Application;
-
+import android.content.SharedPreferences;
+import com.example.minijobhunt.utils.Constants;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -21,6 +22,18 @@ public class App extends Application {
         super.onCreate();
         initRetrofit();
         initPlaces();
+        updateTerminationTime();
+    }
+
+    private void updateTerminationTime() {
+        SharedPreferences pref = getSharedPreferences(Constants.cache, MODE_PRIVATE);
+        pref.edit().putLong("last_termination_time", System.currentTimeMillis()).apply();
+    }
+
+    @Override
+    public void onTerminate() {
+        updateTerminationTime();
+        super.onTerminate();
     }
 
     private void initPlaces() {

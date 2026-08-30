@@ -72,9 +72,17 @@ public class FreelancerDashboardFragment extends Fragment {
         });
 
         binding.btnApplications.setOnClickListener(v -> {
-            // Optional: Navigate to applications list if you have one, 
-            // otherwise using browse jobs as a proxy or just toast
-            Toast.makeText(requireContext(), "Opening Applications...", Toast.LENGTH_SHORT).show();
+            requireActivity().getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_container, new FreelancerJobsFragment())
+                    .addToBackStack(null)
+                    .commit();
+        });
+
+        binding.btnEarnings.setOnClickListener(v -> {
+            String url = "https://esewa.com.np";
+            android.content.Intent intent = new android.content.Intent(android.content.Intent.ACTION_VIEW);
+            intent.setData(android.net.Uri.parse(url));
+            startActivity(intent);
         });
     }
 

@@ -93,6 +93,15 @@ public class ClientProfileFragment extends Fragment {
                     .addToBackStack(null)
                     .commit();
         });
+
+        binding.btnPostJob.setOnClickListener(v -> {
+            requireActivity()
+                    .getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragment_container, new ClientTaskPostingFragment())
+                    .addToBackStack(null)
+                    .commit();
+        });
     }
 
     private void loadStats() {
