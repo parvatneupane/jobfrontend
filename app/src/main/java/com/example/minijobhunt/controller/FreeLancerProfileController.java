@@ -138,7 +138,7 @@ public class FreeLancerProfileController {
             String availability,
 
             String portfolio,
-            
+
             List<Integer> categories
 
     ) {
@@ -210,7 +210,7 @@ public class FreeLancerProfileController {
                 "portfolio_url",
                 portfolio
         );
-        
+
         if (categories != null && !categories.isEmpty()) {
             body.put("categories", categories);
         }

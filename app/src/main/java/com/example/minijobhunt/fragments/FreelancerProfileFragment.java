@@ -105,6 +105,11 @@ public class FreelancerProfileFragment extends Fragment {
 
         binding.btnLogout.setOnClickListener(v -> logout());
 
+        binding.btnPaymentHistory.setOnClickListener(v -> {
+            android.content.Intent intent = new android.content.Intent(requireContext(), com.example.minijobhunt.views.PaymentHistoryActivity.class);
+            startActivity(intent);
+        });
+
         binding.btnActiveInProgressJobs.setOnClickListener(v -> {
             requireActivity()
                     .getSupportFragmentManager()

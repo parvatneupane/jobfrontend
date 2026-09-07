@@ -5,11 +5,6 @@
     android:orientation="vertical"
     android:background="@color/background">
 
-    <!-- Header -->
-    <include
-        android:id="@+id/header"
-        layout="@layout/layout_common_header" />
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"

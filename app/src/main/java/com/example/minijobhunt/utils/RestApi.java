@@ -405,4 +405,34 @@ public interface RestApi {
             @Part("message") RequestBody message,
             @Part MultipartBody.Part attachment
     );
+    @GET("notifications/{id}")
+    Call<ResponseBody> getNotifications(
+            @Header("Authorization") String token,
+            @Path("id") int userId
+    );
+
+    @DELETE("notifications/{id}")
+    Call<ResponseBody> deleteNotification(
+            @Header("Authorization") String token,
+            @Path("id") int notificationId
+    );
+
+    @DELETE("notifications/user/{id}")
+    Call<ResponseBody> clearNotifications(
+            @Header("Authorization") String token,
+            @Path("id") int userId
+    );
+
+    // ================= WITHDRAWALS =================
+    @POST("withdrawals")
+    Call<ResponseBody> withdrawEarnings(
+            @Header("Authorization") String token,
+            @Body Map<String, Object> body
+    );
+
+    @GET("withdrawals")
+    Call<ResponseBody> getMyWithdrawals(@Header("Authorization") String token);
+
+    @GET("payment-history")
+    Call<ResponseBody> getPaymentHistory(@Header("Authorization") String token);
 }

@@ -52,6 +52,12 @@
             android:name=".views.PaymentActivity"
             android:exported="false" />
         <activity
+            android:name=".views.WithdrawActivity"
+            android:exported="false" />
+        <activity
+            android:name=".views.PaymentHistoryActivity"
+            android:exported="false" />
+        <activity
             android:name="com.f1soft.esewapaymentsdk.ui.screens.EsewaPaymentActivity"
             android:exported="false" />
 

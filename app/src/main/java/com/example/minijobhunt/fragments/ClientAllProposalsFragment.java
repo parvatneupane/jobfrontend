@@ -551,7 +551,7 @@ public class ClientAllProposalsFragment extends Fragment {
                 holder.itemBinding.btnViewDetails.setOnClickListener(v -> {
                     FreeLancerPortfolioFragment fragment = new FreeLancerPortfolioFragment();
                     Bundle args = new Bundle();
-                    args.putInt("user_id", userId);
+                    args.putInt("profile_id", userId);
                     try {
                         args.putString("user_name", user.getString("name"));
                     } catch (Exception e) {

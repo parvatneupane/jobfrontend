@@ -68,6 +68,10 @@ public class FreeLancerPortfolioFragment extends Fragment {
                 binding.txtName.setText(targetUserName);
                 binding.txtAvatar.setText(String.valueOf(targetUserName.charAt(0)));
             }
+            
+            // Show back button if we are viewing someone else's profile
+            binding.btnBack.setVisibility(View.VISIBLE);
+            binding.btnBack.setOnClickListener(v -> requireActivity().getSupportFragmentManager().popBackStack());
         }
 
         binding.rvReviews.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -130,7 +134,15 @@ public class FreeLancerPortfolioFragment extends Fragment {
                     }
 
                     JSONObject root = new JSONObject(response.body().string());
-                    JSONObject profile = root.optJSONObject("data");
+                    Object data = root.opt("data");
+                    JSONObject profile = null;
+
+                    if (data instanceof JSONArray) {
+                        JSONArray array = (JSONArray) data;
+                        if (array.length() > 0) profile = array.getJSONObject(0);
+                    } else if (data instanceof JSONObject) {
+                        profile = (JSONObject) data;
+                    }
 
                     if (profile == null) {
                         return;

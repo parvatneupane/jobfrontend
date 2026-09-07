@@ -79,9 +79,7 @@ public class FreelancerDashboardFragment extends Fragment {
         });
 
         binding.btnEarnings.setOnClickListener(v -> {
-            String url = "https://esewa.com.np";
-            android.content.Intent intent = new android.content.Intent(android.content.Intent.ACTION_VIEW);
-            intent.setData(android.net.Uri.parse(url));
+            android.content.Intent intent = new android.content.Intent(requireContext(), com.example.minijobhunt.views.WithdrawActivity.class);
             startActivity(intent);
         });
     }

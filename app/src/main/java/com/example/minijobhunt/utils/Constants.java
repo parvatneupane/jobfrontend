@@ -5,7 +5,7 @@ public class Constants {
      public static final String cache = "shared_preference_cache";
 
 //public static final String URL = "http://localhost:5000/";http://192.168.1.9:8000
-    public static final String URL = "http://192.168.1.7:8000/";
+    public static final String URL = "http://192.168.1.6:8000/";
 
     public static final String Login = "login";
 

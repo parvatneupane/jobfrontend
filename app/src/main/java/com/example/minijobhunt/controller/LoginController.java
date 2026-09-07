@@ -114,6 +114,9 @@ public class LoginController {
                                                     user.optString("role")
                                             );
 
+                                            // Send FCM token to server if it exists
+                                            sendFcmTokenToServer(token);
+
                                             view.loginSuccessful();
                                         } else {
                                             view.showError(json.optString("message", "Invalid credentials"));
@@ -169,6 +172,33 @@ public class LoginController {
         pref.edit().clear().apply();
         view.startActivity(new android.content.Intent(view, LoginActivity.class));
         view.finishAffinity();
+    }
+
+    private void sendFcmTokenToServer(String authToken) {
+        SharedPreferences sp = view.getSharedPreferences(Constants.cache, Context.MODE_PRIVATE);
+        String fcmToken = sp.getString("fcm_token", "");
+
+        if (fcmToken.isEmpty() || authToken.isEmpty()) return;
+
+        Map<String, String> body = new HashMap<>();
+        body.put("fcm_token", fcmToken);
+
+        App.api.saveFcmToken("Bearer " + authToken, body)
+                .enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        if (response.isSuccessful()) {
+                            Log.d("FCM", "Token saved to server successfully");
+                        } else {
+                            Log.e("FCM", "Failed to save token to server: " + response.code());
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        Log.e("FCM", "Error saving token to server", t);
+                    }
+                });
     }
 
     private void saveData(

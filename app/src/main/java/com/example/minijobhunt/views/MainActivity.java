@@ -10,7 +10,18 @@ import com.example.minijobhunt.fragments.ClientChatFragment;
 import com.example.minijobhunt.fragments.ClientDashboardFragment;
 import com.example.minijobhunt.fragments.ClientProfileFragment;
 import com.example.minijobhunt.fragments.ClientSearchFragment;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.SharedPreferences;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
+import androidx.appcompat.widget.Toolbar;
 import com.example.minijobhunt.fragments.ClientTaskPostingFragment;
+import com.example.minijobhunt.NotificationFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -39,6 +50,15 @@ import retrofit2.Response;
 public class MainActivity extends AppCompatActivity {
 
     private BottomNavigationView bottomNav;
+    private TextView notificationBadge;
+    private int notificationCount = 0;
+
+    private final BroadcastReceiver notificationReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            loadNotificationCount();
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,10 +66,17 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
 
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
+        }
+
         bottomNav = findViewById(R.id.bottomNav);
 
         requestNotificationPermission();
         deviceToken();
+        loadNotificationCount();
 
         // Default Fragment
         if (savedInstanceState == null) {
@@ -82,6 +109,75 @@ public class MainActivity extends AppCompatActivity {
             return loadFragment(selectedFragment);
 
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+
+        final MenuItem menuItem = menu.findItem(R.id.action_notifications);
+        View actionView = menuItem.getActionView();
+        notificationBadge = actionView.findViewById(R.id.count_badge);
+
+        setupBadge();
+
+        actionView.setOnClickListener(v -> onOptionsItemSelected(menuItem));
+
+        return true;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadNotificationCount();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            registerReceiver(notificationReceiver, new IntentFilter("com.example.minijobhunt.UPDATE_NOTIFICATION_COUNT"), Context.RECEIVER_EXPORTED);
+        } else {
+            registerReceiver(notificationReceiver, new IntentFilter("com.example.minijobhunt.UPDATE_NOTIFICATION_COUNT"));
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        unregisterReceiver(notificationReceiver);
+    }
+
+    private void loadNotificationCount() {
+        SharedPreferences sp = getSharedPreferences(Constants.cache, MODE_PRIVATE);
+        notificationCount = sp.getInt("unread_notifications", 0);
+        setupBadge();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.action_notifications) {
+            // Clear unread count when opening notifications
+            SharedPreferences sp = getSharedPreferences(Constants.cache, MODE_PRIVATE);
+            sp.edit().putInt("unread_notifications", 0).apply();
+            notificationCount = 0;
+            setupBadge();
+            loadFragment(new NotificationFragment());
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void setupBadge() {
+        if (notificationBadge != null) {
+            if (notificationCount == 0) {
+                notificationBadge.setVisibility(View.GONE);
+            } else {
+                notificationBadge.setText(String.valueOf(Math.min(notificationCount, 99)));
+                notificationBadge.setVisibility(View.VISIBLE);
+            }
+        }
+    }
+
+    // Call this method when a new notification is received (e.g., via BroadcastReceiver)
+    public void updateNotificationCount(int count) {
+        notificationCount = count;
+        runOnUiThread(this::setupBadge);
     }
 
     private boolean loadFragment(Fragment fragment) {
