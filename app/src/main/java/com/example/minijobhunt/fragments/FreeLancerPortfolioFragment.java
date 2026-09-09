@@ -35,6 +35,7 @@ public class FreeLancerPortfolioFragment extends Fragment {
     private ProfileController profileController;
     private ReviewController reviewController;
     private int targetProfileId = -1;
+    private int targetUserId = -1;
     private int targetUserIdForReviews = -1;
     private String targetUserName = "";
 
@@ -63,6 +64,7 @@ public class FreeLancerPortfolioFragment extends Fragment {
 
         if (getArguments() != null) {
             targetProfileId = getArguments().getInt("profile_id", -1);
+            targetUserId = getArguments().getInt("user_id", -1);
             targetUserName = getArguments().getString("user_name", "");
             if (!targetUserName.isEmpty()) {
                 binding.txtName.setText(targetUserName);
@@ -116,7 +118,9 @@ public class FreeLancerPortfolioFragment extends Fragment {
         String token = "Bearer " + pref.getString("token", "");
 
         Call<ResponseBody> call;
-        if (targetProfileId != -1) {
+        if (targetUserId != -1) {
+            call = profileController.getFreelancerProfileByUserId(token, targetUserId);
+        } else if (targetProfileId != -1) {
             call = profileController.getFreelancerProfile(token, targetProfileId);
         } else {
             call = profileController.getMyProfile(token);
@@ -222,13 +226,16 @@ public class FreeLancerPortfolioFragment extends Fragment {
 
     private void loadReviews() {
         if (targetUserIdForReviews == -1) {
-            // Try to get from pref if it's my own profile
-            if (targetProfileId == -1) {
+            if (targetUserId != -1) {
+                targetUserIdForReviews = targetUserId;
+            } else if (targetProfileId == -1) {
+                // Try to get from pref if it's my own profile
                 SharedPreferences pref = requireActivity().getSharedPreferences(Constants.cache, Context.MODE_PRIVATE);
                 targetUserIdForReviews = pref.getInt("userid", 0);
             }
-            if (targetUserIdForReviews <= 0) return;
         }
+
+        if (targetUserIdForReviews <= 0) return;
 
         SharedPreferences pref = requireActivity().getSharedPreferences(Constants.cache, Context.MODE_PRIVATE);
         String token = "Bearer " + pref.getString("token", "");

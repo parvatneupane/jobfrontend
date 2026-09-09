@@ -360,6 +360,12 @@ public interface RestApi {
             @Query("search") String search
     );
 
+    @GET("freelancer-profiles")
+    Call<ResponseBody> getFreelancerProfileByUserId(
+            @Header("Authorization") String token,
+            @Query("user_id") int userId
+    );
+
     // ================= CONFLICTS =================
 
     @GET("conflicts")

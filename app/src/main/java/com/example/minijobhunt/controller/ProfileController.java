@@ -15,6 +15,10 @@ public class ProfileController {
         return App.api.getFreelancerProfile(token, profileId);
     }
 
+    public Call<ResponseBody> getFreelancerProfileByUserId(String token, int userId) {
+        return App.api.getFreelancerProfileByUserId(token, userId);
+    }
+
     public Call<ResponseBody> getFreelancers(String token, String search) {
         return App.api.getFreelancers(token, search);
     }

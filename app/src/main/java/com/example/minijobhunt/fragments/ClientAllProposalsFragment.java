@@ -68,6 +68,7 @@ public class ClientAllProposalsFragment extends Fragment {
     private int jobId = -1;
     private String jobTitle = "";
     private Map<Integer, Boolean> verificationCache = new HashMap<>();
+    private Map<Integer, String> ratingCache = new HashMap<>();
     private JSONObject selectedProposalForHire;
     private int currentContractId = -1;
     private String jobBudget = "0";
@@ -434,16 +435,22 @@ public class ClientAllProposalsFragment extends Fragment {
     }
 
     private void fetchFreelancerRating(int userId, android.widget.TextView txtRating) {
+        if (ratingCache.containsKey(userId)) {
+            txtRating.setText(ratingCache.get(userId));
+            return;
+        }
+
         SharedPreferences pref = requireActivity().getSharedPreferences(Constants.cache, Context.MODE_PRIVATE);
         String token = "Bearer " + pref.getString("token", "");
 
-        profileController.getFreelancerProfile(token, userId).enqueue(new Callback<ResponseBody>() {
+        profileController.getFreelancerProfileByUserId(token, userId).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 try {
                     if (response.isSuccessful() && response.body() != null) {
-                        JSONObject root = new JSONObject(response.body().string());
-                        Object data = root.get("data");
+                        String bodyStr = response.body().string();
+                        JSONObject root = new JSONObject(bodyStr);
+                        Object data = root.opt("data");
                         JSONObject profile = null;
 
                         if (data instanceof JSONArray) {
@@ -455,7 +462,10 @@ public class ClientAllProposalsFragment extends Fragment {
 
                         if (profile != null) {
                             String rating = profile.optString("rating", "0.0");
-                            txtRating.setText(rating);
+                            ratingCache.put(userId, rating);
+                            if (isAdded()) {
+                                requireActivity().runOnUiThread(() -> txtRating.setText(rating));
+                            }
                         }
                     }
                 } catch (Exception e) {
@@ -523,6 +533,7 @@ public class ClientAllProposalsFragment extends Fragment {
                 }
 
                 // Fetch and Set Rating
+                holder.itemBinding.txtRating.setText("...");
                 fetchFreelancerRating(userId, holder.itemBinding.txtRating);
 
                 // Profile Image
@@ -555,7 +566,7 @@ public class ClientAllProposalsFragment extends Fragment {
                 holder.itemBinding.btnViewDetails.setOnClickListener(v -> {
                     FreeLancerPortfolioFragment fragment = new FreeLancerPortfolioFragment();
                     Bundle args = new Bundle();
-                    args.putInt("profile_id", userId);
+                    args.putInt("user_id", userId);
                     try {
                         args.putString("user_name", user.getString("name"));
                     } catch (Exception e) {
