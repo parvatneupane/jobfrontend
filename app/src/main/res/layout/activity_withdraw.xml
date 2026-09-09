@@ -4,25 +4,31 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="20dp"
     android:background="@color/background">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@android:color/transparent"
+        android:background="@color/surface"
+        android:elevation="4dp"
         app:navigationIcon="?attr/homeAsUpIndicator"
         app:title="Withdraw Earnings" />
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Withdrawal Request"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:textColor="@color/text_primary"
-        android:layout_marginTop="20dp"/>
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Withdrawal Request"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="@color/text_primary"
+            android:layout_marginTop="8dp"/>
 
     <TextView
         android:id="@+id/txtBalance"
@@ -87,5 +93,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="16dp"
         android:visibility="gone"/>
+
+    </LinearLayout>
 
 </LinearLayout>

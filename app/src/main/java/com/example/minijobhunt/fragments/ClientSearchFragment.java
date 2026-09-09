@@ -152,47 +152,53 @@ public class ClientSearchFragment extends Fragment {
     }
 
     private void filterFreelancers() {
+        JSONArray filtered;
         if (selectedCategory.equals("All")) {
-            adapter = new FreelancerSearchAdapter(allFreelancers, requireActivity());
-            binding.rvFreelancers.setAdapter(adapter);
-            return;
-        }
-
-        JSONArray filtered = new JSONArray();
-        for (int i = 0; i < allFreelancers.length(); i++) {
-            try {
-                JSONObject profile = allFreelancers.getJSONObject(i);
-                boolean matches = false;
-                
-                // Check if profile has categories array
-                if (profile.has("categories")) {
-                    JSONArray cats = profile.getJSONArray("categories");
-                    for (int j = 0; j < cats.length(); j++) {
-                        if (cats.getJSONObject(j).getString("name").equalsIgnoreCase(selectedCategory)) {
-                            matches = true;
-                            break;
+            filtered = allFreelancers;
+        } else {
+            filtered = new JSONArray();
+            for (int i = 0; i < allFreelancers.length(); i++) {
+                try {
+                    JSONObject profile = allFreelancers.getJSONObject(i);
+                    boolean matches = false;
+                    
+                    // Check if profile has categories array
+                    if (profile.has("categories")) {
+                        JSONArray cats = profile.getJSONArray("categories");
+                        for (int j = 0; j < cats.length(); j++) {
+                            if (cats.getJSONObject(j).getString("name").equalsIgnoreCase(selectedCategory)) {
+                                matches = true;
+                                break;
+                            }
                         }
                     }
-                }
-                
-                // Fallback: check skills or title if categories not explicitly linked in profile
-                if (!matches) {
-                    String skills = profile.optString("skills", "").toLowerCase();
-                    String title = profile.optString("title", "").toLowerCase();
-                    if (skills.contains(selectedCategory.toLowerCase()) || title.contains(selectedCategory.toLowerCase())) {
-                        matches = true;
+                    
+                    // Fallback: check skills or title if categories not explicitly linked in profile
+                    if (!matches) {
+                        String skills = profile.optString("skills", "").toLowerCase();
+                        String title = profile.optString("title", "").toLowerCase();
+                        if (skills.contains(selectedCategory.toLowerCase()) || title.contains(selectedCategory.toLowerCase())) {
+                            matches = true;
+                        }
                     }
-                }
 
-                if (matches) {
-                    filtered.put(profile);
+                    if (matches) {
+                        filtered.put(profile);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-            } catch (Exception e) {
-                e.printStackTrace();
             }
         }
+        
         adapter = new FreelancerSearchAdapter(filtered, requireActivity());
         binding.rvFreelancers.setAdapter(adapter);
+
+        if (filtered.length() == 0) {
+            binding.txtEmpty.setVisibility(View.VISIBLE);
+        } else {
+            binding.txtEmpty.setVisibility(View.GONE);
+        }
     }
 
     @Override

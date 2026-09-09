@@ -124,6 +124,17 @@
             android:layout_marginTop="16dp"
             android:nestedScrollingEnabled="false"/>
 
+        <TextView
+            android:id="@+id/txtEmpty"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="32dp"
+            android:text="No professionals found matching your search."
+            android:textColor="@color/text_secondary"
+            android:textSize="16sp"
+            android:visibility="gone" />
+
         <!-- Footer -->
 
         <TextView

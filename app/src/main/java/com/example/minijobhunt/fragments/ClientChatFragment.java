@@ -96,6 +96,14 @@ public class ClientChatFragment extends Fragment {
             }
         }
         adapter.notifyDataSetChanged();
+        
+        if (filteredList.isEmpty()) {
+            binding.txtEmpty.setVisibility(View.VISIBLE);
+            binding.rvChats.setVisibility(View.GONE);
+        } else {
+            binding.txtEmpty.setVisibility(View.GONE);
+            binding.rvChats.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override

@@ -380,7 +380,11 @@ public class ClientAllProposalsFragment extends Fragment {
                         adapter.notifyDataSetChanged();
 
                         if (proposalList.isEmpty()) {
-                            Toast.makeText(requireContext(), "No applicants yet", Toast.LENGTH_SHORT).show();
+                            binding.txtEmpty.setVisibility(View.VISIBLE);
+                            binding.rvProposals.setVisibility(View.GONE);
+                        } else {
+                            binding.txtEmpty.setVisibility(View.GONE);
+                            binding.rvProposals.setVisibility(View.VISIBLE);
                         }
                     }
                 } catch (Exception e) {

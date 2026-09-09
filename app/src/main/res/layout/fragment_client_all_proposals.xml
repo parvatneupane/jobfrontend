@@ -10,7 +10,7 @@
     <!-- Header -->
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="100dp"
         android:background="@color/surface"
         android:paddingHorizontal="16dp">
 
@@ -18,7 +18,8 @@
             android:id="@+id/btnBack"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_centerVertical="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="10dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:src="@drawable/ic_arrow_back"
             app:tint="@color/text_primary"
@@ -27,8 +28,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
+            android:layout_alignParentBottom="true"
             android:layout_toEndOf="@id/btnBack"
+            android:layout_marginBottom="12dp"
             android:layout_marginStart="8dp"
             android:text="Review Proposals"
             android:textColor="@color/text_primary"
@@ -40,7 +42,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="12dp"
             android:text="0 Total"
             android:textSize="11sp"
             android:textStyle="bold"
@@ -76,9 +79,20 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvProposals"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:clipToPadding="false"
         android:paddingVertical="8dp"
         tools:listitem="@layout/item_client_proposal" />
+
+    <TextView
+        android:id="@+id/txtEmpty"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="No proposals received for this job yet."
+        android:textColor="@color/text_secondary"
+        android:textSize="16sp"
+        android:visibility="gone" />
 
 </LinearLayout>

@@ -38,6 +38,7 @@ public class PaymentHistoryActivity extends AppCompatActivity {
 
     private RecyclerView rvHistory;
     private SwipeRefreshLayout swipeRefresh;
+    private TextView txtEmpty;
     private List<JSONObject> historyList = new ArrayList<>();
     private HistoryAdapter adapter;
 
@@ -55,6 +56,7 @@ public class PaymentHistoryActivity extends AppCompatActivity {
 
         rvHistory = findViewById(R.id.rvHistory);
         swipeRefresh = findViewById(R.id.swipeRefresh);
+        txtEmpty = findViewById(R.id.txtEmpty);
 
         adapter = new HistoryAdapter();
         rvHistory.setLayoutManager(new LinearLayoutManager(this));
@@ -82,6 +84,14 @@ public class PaymentHistoryActivity extends AppCompatActivity {
                             historyList.add(data.getJSONObject(i));
                         }
                         adapter.notifyDataSetChanged();
+
+                        if (historyList.isEmpty()) {
+                            txtEmpty.setVisibility(View.VISIBLE);
+                            rvHistory.setVisibility(View.GONE);
+                        } else {
+                            txtEmpty.setVisibility(View.GONE);
+                            rvHistory.setVisibility(View.VISIBLE);
+                        }
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

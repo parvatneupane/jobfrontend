@@ -50,11 +50,19 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
+import androidx.fragment.app.FragmentManager;
+import com.example.minijobhunt.fragments.ChatMessageFragment;
+import com.example.minijobhunt.fragments.FreeLancerPortfolioFragment;
+
 public class MainActivity2 extends AppCompatActivity {
 
     private BottomNavigationView bottomNav;
     private TextView notificationBadge;
     private int notificationCount = 0;
+    private View brandingLayout;
+    private TextView toolbarTitle;
+    private Toolbar toolbar;
+    private boolean showBranding = true;
 
     private final BroadcastReceiver notificationReceiver = new BroadcastReceiver() {
         @Override
@@ -69,11 +77,22 @@ public class MainActivity2 extends AppCompatActivity {
 
         setContentView(R.layout.activity_main2);
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayShowTitleEnabled(false);
         }
+
+        brandingLayout = findViewById(R.id.branding_layout);
+        toolbarTitle = findViewById(R.id.toolbar_title);
+
+        getSupportFragmentManager().registerFragmentLifecycleCallbacks(new FragmentManager.FragmentLifecycleCallbacks() {
+            @Override
+            public void onFragmentResumed(@NonNull FragmentManager fm, @NonNull Fragment f) {
+                super.onFragmentResumed(fm, f);
+                updateToolbarVisibility(f);
+            }
+        }, true);
 
         bottomNav = findViewById(R.id.bottomNav);
 
@@ -126,6 +145,60 @@ public class MainActivity2 extends AppCompatActivity {
         actionView.setOnClickListener(v -> onOptionsItemSelected(menuItem));
 
         return true;
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        MenuItem notificationItem = menu.findItem(R.id.action_notifications);
+        if (notificationItem != null) {
+            notificationItem.setVisible(showBranding);
+        }
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    private void updateToolbarVisibility(Fragment fragment) {
+        showBranding = isMainFragment(fragment);
+        
+        // Handle full-screen fragments that have their own headers
+        if (fragment instanceof ChatMessageFragment || 
+            fragment instanceof FreeLancerPortfolioFragment ||
+            fragment instanceof NotificationFragment) {
+            toolbar.setVisibility(View.GONE);
+        } else {
+            toolbar.setVisibility(View.VISIBLE);
+            if (brandingLayout != null) {
+                brandingLayout.setVisibility(showBranding ? View.VISIBLE : View.GONE);
+            }
+            if (toolbarTitle != null) {
+                toolbarTitle.setVisibility(showBranding ? View.GONE : View.VISIBLE);
+                toolbarTitle.setText(getFragmentTitle(fragment));
+            }
+        }
+        
+        invalidateOptionsMenu();
+
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(!showBranding);
+        }
+    }
+
+    private String getFragmentTitle(Fragment fragment) {
+        if (fragment instanceof NotificationFragment) return "Notifications";
+        return "";
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
+
+    private boolean isMainFragment(Fragment fragment) {
+        return fragment instanceof FreelancerDashboardFragment ||
+                fragment instanceof FreelancerSearchFragment ||
+                fragment instanceof FreelancerJobsFragment ||
+                fragment instanceof FreelancerChatFragment ||
+                fragment instanceof FreelancerProfileFragment;
     }
 
     @Override

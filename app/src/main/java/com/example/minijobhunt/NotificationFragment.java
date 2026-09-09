@@ -57,6 +57,12 @@ public class NotificationFragment extends Fragment {
         txtEmpty = view.findViewById(R.id.txtEmpty);
         txtClearAll = view.findViewById(R.id.txtClearAll);
 
+        view.findViewById(R.id.btnBack).setOnClickListener(v -> {
+            if (getActivity() != null) {
+                getActivity().getSupportFragmentManager().popBackStack();
+            }
+        });
+
         rvNotifications.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new NotificationAdapter(notificationList);
         rvNotifications.setAdapter(adapter);

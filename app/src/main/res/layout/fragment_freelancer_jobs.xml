@@ -61,9 +61,20 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewJobs"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:clipToPadding="false"
-        android:paddingBottom="100dp"
+        android:paddingBottom="16dp"
         tools:listitem="@layout/item_freelancer_job" />
+
+    <TextView
+        android:id="@+id/txtEmpty"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="You haven't applied to any projects yet."
+        android:textColor="@color/text_secondary"
+        android:textSize="16sp"
+        android:visibility="gone" />
 
 </LinearLayout>

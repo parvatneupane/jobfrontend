@@ -96,6 +96,14 @@ public class ClientMyJobsFragment extends Fragment {
             }
         }
         adapter.notifyDataSetChanged();
+        
+        if (filteredJobs.isEmpty()) {
+            binding.txtEmpty.setVisibility(View.VISIBLE);
+            binding.recyclerView.setVisibility(View.GONE);
+        } else {
+            binding.txtEmpty.setVisibility(View.GONE);
+            binding.recyclerView.setVisibility(View.VISIBLE);
+        }
     }
 
     private void checkVerificationStatus() {

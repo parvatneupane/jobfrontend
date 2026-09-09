@@ -90,12 +90,20 @@ public class FreelancerChatFragment extends Fragment {
             filteredList.addAll(chatList);
         } else {
             for (JSONObject chat : chatList) {
-                if (chat.optInt("unread_count", 0) > 0) {
+                if (chat.optInt("calculated_unread_count", 0) > 0) {
                     filteredList.add(chat);
                 }
             }
         }
         adapter.notifyDataSetChanged();
+
+        if (filteredList.isEmpty()) {
+            binding.txtEmpty.setVisibility(View.VISIBLE);
+            binding.rvChats.setVisibility(View.GONE);
+        } else {
+            binding.txtEmpty.setVisibility(View.GONE);
+            binding.rvChats.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override

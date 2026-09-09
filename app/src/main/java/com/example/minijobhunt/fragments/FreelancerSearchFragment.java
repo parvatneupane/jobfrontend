@@ -362,6 +362,14 @@ public class FreelancerSearchFragment extends Fragment {
         }
         
         adapter.notifyDataSetChanged();
+
+        if (filteredJobs.isEmpty()) {
+            binding.txtEmpty.setVisibility(View.VISIBLE);
+            binding.rvJobs.setVisibility(View.GONE);
+        } else {
+            binding.txtEmpty.setVisibility(View.GONE);
+            binding.rvJobs.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override

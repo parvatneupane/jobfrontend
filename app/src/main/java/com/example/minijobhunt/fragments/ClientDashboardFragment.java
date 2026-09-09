@@ -242,6 +242,9 @@ public class ClientDashboardFragment extends Fragment {
                         binding.txtApplicationsCount.setText(String.valueOf(totalApplicants));
 
                         if (recentJob != null) {
+                            binding.cardRecentJob.setVisibility(View.VISIBLE);
+                            binding.txtNoRecentJobs.setVisibility(View.GONE);
+                            
                             binding.txtRecentJobTitle.setText(recentJob.getString("title"));
                             binding.txtRecentJobPostedAt.setText(UtilsFunctions.getTimeAgo(recentJob.optString("created_at", "")));
                             binding.txtRecentJobApplicants.setText(recentJobApplicants + " applicants");
@@ -293,6 +296,9 @@ public class ClientDashboardFragment extends Fragment {
                                         .addToBackStack(null)
                                         .commit();
                             });
+                        } else {
+                            binding.cardRecentJob.setVisibility(View.GONE);
+                            binding.txtNoRecentJobs.setVisibility(View.VISIBLE);
                         }
                     }
                 } catch (Exception e) {

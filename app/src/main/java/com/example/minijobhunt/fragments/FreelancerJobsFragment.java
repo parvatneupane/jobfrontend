@@ -96,6 +96,14 @@ public class FreelancerJobsFragment extends Fragment {
             }
         }
         adapter.notifyDataSetChanged();
+
+        if (filteredJobs.isEmpty()) {
+            binding.txtEmpty.setVisibility(View.VISIBLE);
+            binding.recyclerViewJobs.setVisibility(View.GONE);
+        } else {
+            binding.txtEmpty.setVisibility(View.GONE);
+            binding.recyclerViewJobs.setVisibility(View.VISIBLE);
+        }
     }
 
     private void loadAllJobs() {

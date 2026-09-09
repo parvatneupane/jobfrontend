@@ -114,6 +114,14 @@ public class ClientCompletedJobsFragment extends Fragment {
                             }
                         }
                         adapter.notifyDataSetChanged();
+
+                        if (contractList.isEmpty()) {
+                            binding.txtEmpty.setVisibility(View.VISIBLE);
+                            binding.recyclerView.setVisibility(View.GONE);
+                        } else {
+                            binding.txtEmpty.setVisibility(View.GONE);
+                            binding.recyclerView.setVisibility(View.VISIBLE);
+                        }
                     }
                 } catch (Exception e) { e.printStackTrace(); }
             }
